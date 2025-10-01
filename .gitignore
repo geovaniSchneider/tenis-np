@@ -1,0 +1,35 @@
+# Node modules
+/node_modules/
+
+# Build output
+/dist/
+/out-tsc/
+/coverage/
+
+# Angular CLI
+/.angular/
+
+# IDEs
+/.vscode/
+/.idea/
+/*.suo
+/*.ntvs*
+/*.njsproj
+/*.sln
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment files (contendo chaves ou senhas)
+src/environments/*.ts
+!src/environments/environment.example.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.swp
