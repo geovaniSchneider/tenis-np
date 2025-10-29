@@ -1,4 +1,10 @@
 <div class="p-4">
+
+  <!-- Botão voltar -->
+  <button mat-button color="primary" class="mb-3" (click)="goHome()">
+    &larr; Voltar para Home
+  </button>
+  
     <h2>Histórico de Rankings</h2>
   
     <div *ngIf="carregando">Carregando...</div>
