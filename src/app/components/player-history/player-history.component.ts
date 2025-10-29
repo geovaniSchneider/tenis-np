@@ -173,6 +173,6 @@ export class PlayerHistoryComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/players']);
+    this.router.navigate(['/jogadores']);
   }
 }

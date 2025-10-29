@@ -1,0 +1,107 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo {
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Carrossel de apoiadores */
+  .banner {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  
+  .carousel {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .carousel-track {
+    display: flex;
+    animation: scroll 15s linear infinite;
+  }
+  
+  .carousel-track img {
+    height: 80px;
+    margin: 0 2rem;
+  }
+  
+  /* Animação carrossel */
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  
+  /* Grupos */
+  .grupos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .grupo-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .grupo-card h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .actions button {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .actions button:first-child {
+    background: #007bff;
+    color: white;
+  }
+  
+  .actions button:first-child:hover {
+    background: #0056b3;
+  }
+  
+  .actions button:last-child {
+    background: #28a745;
+    color: white;
+  }
+  
+  .actions button:last-child:hover {
+    background: #1e7e34;
+  }
+  

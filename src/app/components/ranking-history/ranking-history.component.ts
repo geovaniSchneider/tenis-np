@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface RankingHistory {
   Ciclo: string;
@@ -20,7 +21,7 @@ export class RankingHistoryComponent implements OnInit {
   dados: RankingHistory[] = [];
   carregando = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router,) {}
 
   ngOnInit(): void {
     this.http.get('ciclos.csv', { responseType: 'text' })
@@ -48,5 +49,9 @@ export class RankingHistoryComponent implements OnInit {
         Link: valores[cabecalho.indexOf('Link')],
       };
     });
+  }
+
+  goHome() {
+    this.router.navigate(['/home']);
   }
 }

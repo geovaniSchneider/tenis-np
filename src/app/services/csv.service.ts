@@ -9,6 +9,14 @@ export class CsvService {
   private jogosSubject = new BehaviorSubject<Jogo[]>([]);
   jogos$ = this.jogosSubject.asObservable();
 
+  tabelasAtuais: { ciclo: string; classe: string; link: string }[] = [
+    { ciclo: '2025.3', classe: '1', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTNZN4hPXDBqEGb1_T9CUYZAD1w5-OGSOrrH-RT13suVGY1cJEnM97486nxhmeyuyOqi7ckXDQyzzCo/pub?gid=517895131&single=true&output=csv' },
+    { ciclo: '2025.3', classe: '2', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSX4m1ilJ0sHhwsoGZi7jTaycOlcANmtI2qYY_5_cEmzjgOcLUvjOCFOytoIgEOsSRODazvVy6M5xn/pub?gid=782127195&single=true&output=csv' },
+    { ciclo: '2025.3', classe: '3', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSRFgRoY2gZbW0zJZ28kFKBIaOMw1u7saT9Dxm7bYLPVe6_7f8K3J7KE98nuim0IUW1mIek8yAQXXyZ/pub?gid=238023827&single=true&output=csv' },
+    { ciclo: '2025.3', classe: '4', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRRc20H9PweLghnImIIABATVMDPdQi6hpA1-C_SwOHFdQWPs7D6rjCNTrncrYyXdIRZlRqfnA2zpLZR/pub?gid=255516752&single=true&output=csv' },
+    { ciclo: '2025.3', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2NBbDFEr9yyveTcrKUXtpVeaayAiYIkeGbX2BoapbRAMd8n-F6uttALXKzdVObNSdzy9a2_u1PqAQ/pub?gid=562202993&single=true&output=csv' },
+  ];
+
   constructor(private http: HttpClient) {
     this.loadCsv();
   }
@@ -17,17 +25,50 @@ export class CsvService {
     this.http.get('jogos.csv', { responseType: 'text' })
       .subscribe(text => {
         const parsed = this.parseCsv(text);
-        this.jogosSubject.next(parsed);
+        // this.jogosSubject.next(parsed);
+
+        const atual = this.jogosSubject.getValue();
+        this.jogosSubject.next([...atual, ...parsed]);
       });
+
+
+      this.tabelasAtuais.forEach(tabela => {
+        
+        this.http.get(tabela.link, { responseType: 'text' })
+          .subscribe(text => {
+            const parsed = this.parseCsv(text,tabela.ciclo,tabela.classe);
+
+            const atual = this.jogosSubject.getValue();
+            this.jogosSubject.next([...atual, ...parsed]);
+
+          });
+
+      });
+
+    
+      
   }
 
-  private parseCsv(csvText: string): Jogo[] {
+
+  private parseCsv(csvText: string, ciclo: string='', classe: string=''): Jogo[] {
     const jogos: Jogo[] = [];
 
     // Usando PapaParse para ler o CSV
     const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
     for (const row of parsed.data as any[]) {
+
+      if(!row['Jogador 1']){
+        continue;
+      }
+
+      if(ciclo){
+        row.CICLO = ciclo;
+      }
+
+      if(classe){
+        row.CLASSE = classe;
+      }
       
       const datePart = row['Data do jogo'];
       const timePart = '00:00:00'

@@ -27,6 +27,12 @@ interface PlayerStats {
   ],
   template: `
     <div class="container mt-3">
+      
+      <!-- Botão voltar -->
+      <button mat-button color="primary" class="mb-3" (click)="goHome()">
+        &larr; Voltar para Home
+      </button>
+      
       <h2>Lista de Jogadores</h2>
 
       <!-- Botão para Head-to-Head -->
@@ -152,4 +158,9 @@ export class PlayerListComponent implements OnInit {
   goHistory(nome: string) {
     this.router.navigate(['/jogador', nome]);
   }
+
+  goHome() {
+    this.router.navigate(['/home']);
+  }
+
 }

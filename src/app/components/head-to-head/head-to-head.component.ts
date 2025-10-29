@@ -222,6 +222,6 @@ export class HeadToHeadComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/players']);
+    this.router.navigate(['/jogadores']);
   }
 }
