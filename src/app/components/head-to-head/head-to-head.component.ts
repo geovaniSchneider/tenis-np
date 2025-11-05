@@ -43,7 +43,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         <div class="col-md-5">
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Jogador B</mat-label>
-            <mat-select [(value)]="jogadorB" (selectionChange)="updateStats()">
+            <mat-select [(value)]="jogadorB" (selectionChange)="updateStats()" [disabled]="!jogadorA">
               <mat-option *ngFor="let j of jogadoresBDisponiveis" [value]="j">{{ j }}</mat-option>
             </mat-select>
           </mat-form-field>
