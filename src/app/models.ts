@@ -1,7 +1,7 @@
 export interface Jogo {
    id: number;
    ciclo: string;
-   classe: number;
+   classe: string;
    data_jogo: Date | null;
    jogador1: string;
    jogador2: string;
@@ -25,6 +25,6 @@ export interface Jogo {
 
 export interface PosicaoCiclo {
    ciclo: string;
-   classe: number;
+   classe: string;
    posicao: number;
 }

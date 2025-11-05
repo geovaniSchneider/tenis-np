@@ -81,6 +81,11 @@ import { ActivatedRoute, Router } from '@angular/router';
           <td mat-cell *matCellDef="let jogo"> {{ jogo.data_jogo ? (jogo.data_jogo | date:'dd/MM/yyyy') : '-' }} </td>
         </ng-container>
 
+        <ng-container matColumnDef="ciclo">
+          <th mat-header-cell *matHeaderCellDef> Ciclo </th>
+          <td mat-cell *matCellDef="let jogo"> {{ jogo.ciclo }} </td>
+        </ng-container>
+
         <ng-container matColumnDef="classe">
           <th mat-header-cell *matHeaderCellDef> Classe </th>
           <td mat-cell *matCellDef="let jogo"> {{ jogo.classe }} </td>
@@ -137,7 +142,7 @@ export class HeadToHeadComponent implements OnInit {
   stats: any = { total: 0, vitoriasA: 0, vitoriasB: 0 };
 
   displayedColumns: string[] = [
-    'data', 'classe', 'jogador1', 'jogador2', 'set1', 'set2', 'set3', 'pontos'
+    'data', 'ciclo', 'classe', 'jogador1', 'jogador2', 'set1', 'set2', 'set3', 'pontos'
   ];
 
   constructor(

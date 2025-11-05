@@ -5,7 +5,7 @@ import { Jogo, PosicaoCiclo } from '../models';
 
 interface PlayerStats {
   nome: string;
-  classe: number;
+  classe: string;
   pts: number;
   setsWon: number;
   setsLost: number;
@@ -85,10 +85,10 @@ export class RankingService {
 
 
   /** Retorna lista de classes existentes no ciclo (ordenadas numericamente) */
-  getClassesInCycle(ciclo: string): number[] {
+  getClassesInCycle(ciclo: string): string[] {
     const jogos = this.csv.getAllJogos().filter(j => j.ciclo === ciclo);
-    const classes = Array.from(new Set(jogos.map(j => j.classe))).map(Number);
-    return classes.sort((a, b) => a - b);
+    const classes = Array.from(new Set(jogos.map(j => j.classe)));
+    return classes.sort((a, b) => Number(a) - Number(b));
   }
 
   getJogosObservable() {
@@ -96,7 +96,7 @@ export class RankingService {
    }
 
   /** Retorna estatísticas (pts, sets, games, vitórias, derrotas) por jogador para uma dada classe dentro de um ciclo */
-  computeStatsForCycleClass(ciclo: string, classe: number): PlayerStats[] {
+  computeStatsForCycleClass(ciclo: string, classe: string): PlayerStats[] {
     const jogos = this.csv.getAllJogos().filter(j => j.ciclo === ciclo && j.classe === classe);
     const stats = new Map<string, PlayerStats>();
 
@@ -286,8 +286,8 @@ export class RankingService {
    */
   computePromotionsAndRelegations(ciclo: string, promoteCount = 2, relegateCount = 2) {
     const classes = this.getClassesInCycle(ciclo); // ex: [1,2,3]
-    const promotions: Array<{ nome: string; fromClasse: number; toClasse: number; pos: number; pts: number }> = [];
-    const relegations: Array<{ nome: string; fromClasse: number; toClasse: number; pos: number; pts: number }> = [];
+    const promotions: Array<{ nome: string; fromClasse: string; toClasse: string; pos: number; pts: number }> = [];
+    const relegations: Array<{ nome: string; fromClasse: string; toClasse: string; pos: number; pts: number }> = [];
 
     for (let i = 0; i < classes.length; i++) {
       const cl = classes[i];

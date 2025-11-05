@@ -91,7 +91,7 @@ export class CsvService {
       jogos.push({
         id: Number(row.ID),
         ciclo: row.CICLO,
-        classe: Number(row.CLASSE),
+        classe: row.CLASSE,
         data_jogo,
         jogador1: row['Jogador 1'],
         jogador2: row['Jogador 2'],
