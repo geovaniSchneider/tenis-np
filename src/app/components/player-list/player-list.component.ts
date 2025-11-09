@@ -33,14 +33,7 @@ interface PlayerStats {
         &larr; Voltar para Home
       </button>
       
-      <h2>Lista de Jogadores</h2>
-
-      <!-- Botão para Head-to-Head -->
-      <div class="mb-3">
-        <button mat-raised-button color="primary" [routerLink]="['/head-to-head']">
-          Ver Head-to-Head
-        </button>
-      </div>
+      <h2>Jogadores</h2>
 
       <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
 

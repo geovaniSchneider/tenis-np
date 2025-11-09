@@ -21,9 +21,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   ],
   template: `
     <div class="container mt-3">
+
       <!-- Botão voltar -->
-      <button mat-button color="primary" class="mb-3" (click)="goBack()">
-        &larr; Voltar para Lista de Jogadores
+      <button mat-button color="primary" class="mb-3" (click)="goHome()">
+        &larr; Voltar para Home
       </button>
 
       <h2>Head-to-Head</h2>
@@ -226,7 +227,7 @@ export class HeadToHeadComponent implements OnInit {
     this.stats = this.ranking.getHeadToHeadStats(this.jogadorA, this.jogadorB);
   }
 
-  goBack() {
-    this.router.navigate(['/jogadores']);
+  goHome() {
+    this.router.navigate(['/home']);
   }
 }

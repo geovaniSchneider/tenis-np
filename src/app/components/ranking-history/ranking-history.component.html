@@ -5,40 +5,38 @@
     &larr; Voltar para Home
   </button>
   
-    <h2>Histórico de Rankings</h2>
+    <h2>Histórico de Ciclos</h2>
   
     <div *ngIf="carregando">Carregando...</div>
   
     <table *ngIf="!carregando" mat-table [dataSource]="dados" class="mat-elevation-z8 w-full">
-      <!-- Rank -->
-      <ng-container matColumnDef="rank">
-        <th mat-header-cell *matHeaderCellDef>#</th>
-        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-      </ng-container>
-  
-      <!-- Ciclo -->
-      <ng-container matColumnDef="Ciclo">
+
+      <!-- Coluna: Ciclo -->
+      <ng-container matColumnDef="ciclo">
         <th mat-header-cell *matHeaderCellDef>Ciclo</th>
-        <td mat-cell *matCellDef="let element">{{ element.Ciclo }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.ciclo }}</td>
       </ng-container>
   
-      <!-- Classe -->
-      <ng-container matColumnDef="Classe">
-        <th mat-header-cell *matHeaderCellDef>Classe</th>
-        <td mat-cell *matCellDef="let element">{{ element.Classe }}</td>
-      </ng-container>
-  
-      <!-- Link -->
-      <ng-container matColumnDef="Link">
-        <th mat-header-cell *matHeaderCellDef>Link</th>
+      <!-- Coluna: Classes -->
+      <ng-container matColumnDef="classes">
+        <th mat-header-cell *matHeaderCellDef>Classes</th>
         <td mat-cell *matCellDef="let element">
-          
-          <a [href]="element.Link" target="_blank">Abrir</a>
+          <ng-container *ngFor="let classe of element.classes; let i = index">
+
+            <button mat-button color="primary" class="mb-3" (click)="abrirLink(classe.link)" style="margin-right: 10px;">
+              Classe {{ classe.nome }}
+            </button>
+            
+          </ng-container>
         </td>
       </ng-container>
   
-      <tr mat-header-row *matHeaderRowDef="['rank', 'Ciclo', 'Classe', 'Link']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['rank', 'Ciclo', 'Classe', 'Link'];"></tr>
+      <!-- Cabeçalho e linhas -->
+      <tr mat-header-row *matHeaderRowDef="['ciclo', 'classes']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['ciclo', 'classes'];"></tr>
+  
     </table>
+
+
   </div>
   

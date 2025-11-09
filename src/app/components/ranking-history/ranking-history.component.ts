@@ -4,10 +4,14 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 
+interface Classe {
+  nome: string;
+  link: string;
+}
+
 interface RankingHistory {
-  Ciclo: string;
-  Classe: string;
-  Link: string;
+  ciclo: string;
+  classes: Classe[];
 }
 
 @Component({
@@ -37,21 +41,54 @@ export class RankingHistoryComponent implements OnInit {
       });
   }
 
+  // private parseCsv(csv: string): RankingHistory[] {
+  //   const linhas = csv.trim().split('\n');
+  //   const cabecalho = linhas.shift()?.split(',') ?? [];
+
+  //   return linhas.map(linha => {
+  //     const valores = linha.split(',');
+  //     return {
+  //       Ciclo: valores[cabecalho.indexOf('Ciclo')],
+  //       Classe: valores[cabecalho.indexOf('Classe')],
+  //       Link: valores[cabecalho.indexOf('Link')],
+  //     };
+  //   });
+  // }
+
   private parseCsv(csv: string): RankingHistory[] {
     const linhas = csv.trim().split('\n');
     const cabecalho = linhas.shift()?.split(',') ?? [];
-
-    return linhas.map(linha => {
+  
+    const mapaCiclos: { [ciclo: string]: { nome: string; link: string }[] } = {};
+  
+    for (const linha of linhas) {
       const valores = linha.split(',');
-      return {
-        Ciclo: valores[cabecalho.indexOf('Ciclo')],
-        Classe: valores[cabecalho.indexOf('Classe')],
-        Link: valores[cabecalho.indexOf('Link')],
-      };
-    });
+  
+      const ciclo = valores[cabecalho.indexOf('Ciclo')];
+      const classe = valores[cabecalho.indexOf('Classe')];
+      const link = valores[cabecalho.indexOf('Link')];
+  
+      if (!mapaCiclos[ciclo]) {
+        mapaCiclos[ciclo] = [];
+      }
+  
+      mapaCiclos[ciclo].push({ nome: classe, link });
+    }
+  
+    // Converte o mapa em uma lista de RankingHistory
+    return Object.entries(mapaCiclos).map(([ciclo, classes]) => ({
+      ciclo,
+      classes,
+    }));
   }
+  
 
   goHome() {
     this.router.navigate(['/home']);
   }
+
+  abrirLink(url: string): void {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+  
 }
