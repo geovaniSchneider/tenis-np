@@ -54,6 +54,24 @@ import { MatCardModule } from '@angular/material/card';
         </div>
       </div>
 
+      <!-- Resumo de ciclos -->
+      <div class="mb-4">
+      <h3>Participação por Ciclo</h3>
+      <div *ngFor="let item of ciclosDoJogador" class="mb-2">
+         <strong>{{ item.ciclo }}:</strong>
+         <ng-container *ngIf="item.classes.length > 0; else semJogos">
+            <span *ngFor="let classe of item.classes" class="badge bg-primary me-1">
+            {{ classe }}
+            </span>
+         </ng-container>
+         <ng-template #semJogos>
+            <span class="text-muted">— Não jogou —</span>
+         </ng-template>
+      </div>
+      </div>
+
+
+
       <!-- Tabela -->
       <table mat-table [dataSource]="jogos" class="table table-striped table-bordered">
 
@@ -61,6 +79,12 @@ import { MatCardModule } from '@angular/material/card';
         <ng-container matColumnDef="ciclo">
           <th mat-header-cell *matHeaderCellDef> Ciclo </th>
           <td mat-cell *matCellDef="let jogo"> {{ jogo.ciclo }} </td>
+        </ng-container>
+
+        <!-- Classe -->
+        <ng-container matColumnDef="classe">
+          <th mat-header-cell *matHeaderCellDef> Classe </th>
+          <td mat-cell *matCellDef="let jogo"> {{ jogo.classe }} </td>
         </ng-container>
 
         <!-- Data -->
@@ -129,6 +153,7 @@ export class PlayerHistoryComponent implements OnInit {
   jogos: any[] = [];
   displayedColumns: string[] = [
     'ciclo',
+    'classe',
     'data',
     'jogador1',
     'jogador2',
@@ -137,6 +162,8 @@ export class PlayerHistoryComponent implements OnInit {
     'set3',
     'pontos'
   ];
+
+  ciclosDoJogador: { ciclo: string, classes: string[] }[] = [];
 
   totalJogos = 0;
   totalVitorias = 0;
@@ -149,10 +176,10 @@ export class PlayerHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.jogador = this.route.snapshot.paramMap.get('nome') || '';
+      this.jogador = this.route.snapshot.paramMap.get('nome') || '';
 
-    // Pegar todos os jogos do jogador e ordenar por data
-    this.jogos = this.ranking.getJogosDoJogador(this.jogador).sort((a, b) => {
+      // Pegar todos os jogos do jogador e ordenar por data
+      this.jogos = this.ranking.getJogosDoJogador(this.jogador).sort((a, b) => {
       const dateA = a.data_jogo ? new Date(a.data_jogo).getTime() : null;
       const dateB = b.data_jogo ? new Date(b.data_jogo).getTime() : null;
 
@@ -161,15 +188,40 @@ export class PlayerHistoryComponent implements OnInit {
       if (dateA === null && dateB === null) return 0;
 
       return dateA! - dateB!;
-    });
+      });
 
-    this.totalJogos = this.jogos.length;
-    this.totalVitorias = this.jogos.filter(
+      this.totalJogos = this.jogos.length;
+      this.totalVitorias = this.jogos.filter(
       j =>
-        (j.jogador1 === this.jogador && j.vitoria_j1) ||
-        (j.jogador2 === this.jogador && j.vitoria_j2)
-    ).length;
-    this.totalDerrotas = this.totalJogos - this.totalVitorias;
+         (j.jogador1 === this.jogador && j.vitoria_j1) ||
+         (j.jogador2 === this.jogador && j.vitoria_j2)
+      ).length;
+      this.totalDerrotas = this.totalJogos - this.totalVitorias;
+
+
+
+
+      // --- Montar lista de ciclos e classes ---
+      const todosJogos = this.ranking.getAllJogos(); // todos os jogos do CSV
+      const todosCiclos = Array.from(new Set(todosJogos.map(j => j.ciclo))).sort();
+
+      const ciclosMap = new Map<string, Set<string>>();
+
+      for (const jogo of this.jogos) {
+         if (!ciclosMap.has(jogo.ciclo)) {
+            ciclosMap.set(jogo.ciclo, new Set());
+         }
+         ciclosMap.get(jogo.ciclo)!.add(jogo.classe);
+      }
+
+      this.ciclosDoJogador = todosCiclos.map(ciclo => ({
+         ciclo,
+         classes: ciclosMap.has(ciclo)
+            ? Array.from(ciclosMap.get(ciclo)!)
+            : [] // ciclo sem jogos
+      }));
+      
+
   }
 
   goBack() {
