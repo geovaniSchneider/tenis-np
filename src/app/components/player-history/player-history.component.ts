@@ -5,11 +5,12 @@ import { RankingService } from '../../services/ranking.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   standalone: true,
   selector: 'app-player-history',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule, NgxChartsModule],
   template: `
     <div class="container mt-3">
 
@@ -56,19 +57,49 @@ import { MatCardModule } from '@angular/material/card';
 
       <!-- Resumo de ciclos -->
       <div class="mb-4">
-      <h3>Participação por Ciclo</h3>
-      <div *ngFor="let item of ciclosDoJogador" class="mb-2">
-         <strong>{{ item.ciclo }}:</strong>
-         <ng-container *ngIf="item.classes.length > 0; else semJogos">
-            <span *ngFor="let classe of item.classes" class="badge bg-primary me-1">
-            {{ classe }}
-            </span>
-         </ng-container>
-         <ng-template #semJogos>
-            <span class="text-muted">— Não jogou —</span>
-         </ng-template>
+         <h3>Participação por Ciclo</h3>
+         <div *ngFor="let item of ciclosDoJogador" class="mb-2">
+            <strong>{{ item.ciclo }}:</strong>
+            <ng-container *ngIf="item.classes.length > 0; else semJogos">
+               <span *ngFor="let classe of item.classes" class="badge bg-primary me-1">
+               {{ classe }}
+               </span>
+            </ng-container>
+            <ng-template #semJogos>
+               <span class="text-muted">— Não jogou —</span>
+            </ng-template>
+         </div>
       </div>
+
+
+      <!-- Gráfico de evolução -->
+      <div class="mb-4">
+         <h3>Evolução por Ciclo</h3>
+
+         <ngx-charts-line-chart
+            [view]="chartView"
+            [scheme]="'vivid'"
+            [results]="chartData"
+            [gradient]="false"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [yScaleMin]="yScaleMin"
+            [yScaleMax]="yScaleMax"
+            [yAxisTicks]="this.todasClasses"
+            [autoScale]="false"
+            [timeline]="false"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [roundDomains]="true">
+
+           
+         </ngx-charts-line-chart>
       </div>
+
 
 
 
@@ -165,9 +196,30 @@ export class PlayerHistoryComponent implements OnInit {
 
   ciclosDoJogador: { ciclo: string, classes: string[] }[] = [];
 
+  todasClasses: string[] = [];
+
   totalJogos = 0;
   totalVitorias = 0;
   totalDerrotas = 0;
+
+
+   // Dados do gráfico
+   chartData: any[] = [];
+   chartView: [number, number] = [700, 300]; // largura x altura do gráfico
+
+   // Opções de estilo
+   showXAxis = true;
+   showYAxis = true;
+   showLegend = false;
+   showXAxisLabel = true;
+   showYAxisLabel = true;
+   xAxisLabel = 'Ciclo';
+   yAxisLabel = 'Classe';
+   yScaleMin = 0;
+   yScaleMax = 0;
+   classValues: Record<string, number> = {};
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -220,9 +272,65 @@ export class PlayerHistoryComponent implements OnInit {
             ? Array.from(ciclosMap.get(ciclo)!)
             : [] // ciclo sem jogos
       }));
-      
 
+      this.carregarTodasClasses();
+   
   }
+
+   yAxisTickFormatting = (val: number) => {
+      return this.classValues[val.toString()] ?? '';
+   };
+
+carregarTodasClasses() {
+   const todosJogos = this.ranking.getAllJogos();
+   const classesSet = new Set<string>();
+
+   for (const jogo of todosJogos) {
+
+      if (isNaN(Number(jogo.classe))) {
+         continue;
+      }
+
+      if (jogo.classe) {
+         classesSet.add(jogo.classe.toString());
+
+         if (Number(jogo.classe) > this.yScaleMax) {
+            this.yScaleMax = Number(jogo.classe)
+         }
+      }
+   }
+
+   this.todasClasses = Array.from(classesSet).sort((a, b) => {
+      // Ordena numericamente, se forem números
+      const numA = Number(a);
+      const numB = Number(b);
+      if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+      return a.localeCompare(b);
+   });
+
+      // Ajuste para manter a CLASSE 1 no topo
+      for (let i = this.yScaleMin; i <= this.yScaleMax; i++) {
+         this.classValues[i] = this.yScaleMax - i + 1;
+      }
+
+      this.chartData = [
+      {
+         name: 'Classe por Ciclo',
+         series: this.ciclosDoJogador.map(ciclo => {
+            if (ciclo.classes.length === 0) {
+            return { name: ciclo.ciclo, value: 0 }; // não jogou
+            }
+
+            // Se jogou em mais de uma classe no mesmo ciclo, pega o valor máximo
+            const valores = ciclo.classes.map(cl => this.classValues[cl] ?? 0);
+            const melhorClasse = Math.max(...valores);
+
+            return { name: ciclo.ciclo, value: melhorClasse };
+         })
+      }
+      ];
+      
+   }
 
   goBack() {
     this.router.navigate(['/jogadores']);
