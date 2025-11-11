@@ -1,44 +1,113 @@
-<div class="home-container">
-    <!-- Logo + título -->
+<!-- app.component.html -->
+<div class="page-wrapper">
+  <div class="page-container">
+    <!-- Cabeçalho -->
     <header class="header">
-      <img src="assets/logo_ranking_tenis_512.png" alt="Logo Ranking de Tênis NP" class="logo" />
-      <h1>Ranking de Tênis NP</h1>
+      <!-- Logo -->
+      <div class="logo-wrapper">
+        <img
+          src="assets/logo_ranking_tenis_512.png"
+          alt="Tênis Nova Petrópolis"
+          class="logo"
+        />
+      </div>
+
+      <!-- Título -->
+      <h1 class="title">Tênis Nova Petrópolis</h1>
+
+      <!-- Subtítulo -->
+      <p class="subtitle">Links Ciclo 2025.3</p>
     </header>
 
-    <button mat-raised-button color="primary" [routerLink]="['/jogadores']">
-        Jogadores
-      </button>
+    <a
+      mat-button
+      class="outro-link-button"
+      [routerLink]="['/jogadores']"
+   >
+      Jogadores
+   </a>
 
-      <button mat-raised-button color="primary" [routerLink]="['/ranking-history']">
-        Histórico de Ciclos do Ranking
-      </button>
+   <a
+      mat-button
+      class="outro-link-button"
+      [routerLink]="['/ranking-history']"
+   >
+      Histórico de Ciclos do Ranking
+   </a>
 
-      <button mat-raised-button color="primary" [routerLink]="['/head-to-head']">
-        Head-to-Head
-      </button>
+   <a
+      mat-button
+      class="outro-link-button"
+      [routerLink]="['/head-to-head']"
+   >
+      Head-to-Head
+   </a>
 
+    <!-- Blocos de classes -->
+    <section class="cards-section">
+      <mat-card
+        class="classe-card"
+        *ngFor="let classe of grupos"
+      >
+        <mat-card-content>
+          <h2 class="classe-title">{{ classe.nome }}</h2>
+        </mat-card-content>
 
-  
-    <!-- Banner apoiadores (carrossel simples) -->
-    <section class="banner">
-      <div class="carousel">
-        <div class="carousel-track">
-          <img *ngFor="let supporter of supporters" [src]="supporter" alt="Apoiador" />
-        </div>
-      </div>
-    </section>
+        <mat-card-actions class="classe-actions">
+          <a
+            mat-flat-button
+            color="primary"
+            class="full-width-button"
+            [href]="classe.linkFormulario"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Lançar resultado
+          </a>
 
-    <!-- <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2NBbDFEr9yyveTcrKUXtpVeaayAiYIkeGbX2BoapbRAMd8n-F6uttALXKzdVObNSdzy9a2_u1PqAQ/pubhtml?gid=1406767684&amp;single=true&amp;widget=true&amp;headers=false"></iframe> -->
-  
-    <!-- Grupos -->
-    <section class="grupos">
-      <div class="grupo-card" *ngFor="let grupo of grupos">
-        <h2>{{ grupo.nome }}</h2>
-        <div class="actions">
-            <button (click)="abrirPagina(grupo.linkTabela)">Tabela</button>
-          <button (click)="abrirPagina(grupo.linkFormulario)">Lançar Resultado</button>
-        </div>
-      </div>
+          <a
+            mat-stroked-button
+            color="primary"
+            class="full-width-button"
+            [href]="classe.linkTabela"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tabela
+          </a>
+        </mat-card-actions>
+      </mat-card>
+
+      <!-- Bloco de Outros Links -->
+      <mat-card class="outros-card">
+        <mat-card-content>
+          <h2 class="outros-title">Outros Links</h2>
+          <mat-divider></mat-divider>
+
+          <div class="outros-links">
+            <a
+              mat-button
+              class="outro-link-button"
+              href="https://drive.google.com/file/d/1hmsqmIIRPxeXQEtUcHBCvZycAFMI4roL/view"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Regulamento
+            </a>
+
+            <a
+              mat-button
+              class="outro-link-button"
+              href="https://docs.google.com/spreadsheets/d/1owxV0YTm_SKMNC5XfjwF80GE8UtLHqx7EaCavLpGq4g"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Simulador de resultado
+            </a>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
     </section>
   </div>
-  
+</div>

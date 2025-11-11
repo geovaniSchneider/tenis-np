@@ -2,11 +2,21 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
+// Angular Material
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    MatCardModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
   ],
   standalone: true,
   templateUrl: './home.component.html',

@@ -4,4 +4,117 @@
 
 
 html, body, app-root { height: 100%; }
-body { margin: 0; font-family: Roboto, Arial, sans-serif; }
+body { margin: 0; font-family: Roboto, Arial, sans-serif;}
+
+
+// app.component.scss
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  background-color: rgb(252, 255, 252);
+
+}
+
+.page-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.cards-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cards das classes */
+.classe-card {
+  border-radius: 16px;
+}
+
+.classe-title {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 8px 0 0;
+}
+
+.classe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.full-width-button {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Card de outros links */
+.outros-card {
+  margin-top: 8px;
+  border-radius: 16px;
+}
+
+.outros-title {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 4px 0 12px;
+}
+
+.outros-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.outro-link-button {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Responsivo */
+@media (min-width: 600px) {
+  .classe-actions {
+    flex-direction: row;
+  }
+}
