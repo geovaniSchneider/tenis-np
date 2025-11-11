@@ -33,7 +33,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         </div>
         <div class="col-md-4 mb-2">
           <mat-card>
-            <mat-card-title>Total de Vitórias</mat-card-title>
+            <mat-card-title>Vitórias</mat-card-title>
             <mat-card-content>
               <h3>{{ totalVitorias }}</h3>
               <small *ngIf="totalJogos > 0">
@@ -44,7 +44,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         </div>
         <div class="col-md-4 mb-2">
           <mat-card>
-            <mat-card-title>Total de Derrotas</mat-card-title>
+            <mat-card-title>Derrotas</mat-card-title>
             <mat-card-content>
               <h3>{{ totalDerrotas }}</h3>
               <small *ngIf="totalJogos > 0">
@@ -56,7 +56,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
       </div>
 
       <!-- Resumo de ciclos -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
          <h3>Participação por Ciclo</h3>
          <div *ngFor="let item of ciclosDoJogador" class="mb-2">
             <strong>{{ item.ciclo }}:</strong>
@@ -69,15 +69,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
                <span class="text-muted">— Não jogou —</span>
             </ng-template>
          </div>
-      </div>
+      </div> -->
 
 
       <!-- Gráfico de evolução -->
-      <div class="mb-4">
-         <h3>Evolução por Ciclo</h3>
+      <div class="mb-4" style="height: 300px;">
+         <h3>Participação por Ciclo</h3>
 
          <ngx-charts-line-chart
-            [view]="chartView"
             [scheme]="'vivid'"
             [results]="chartData"
             [gradient]="false"
@@ -95,13 +94,48 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
             [timeline]="false"
             [yAxisTickFormatting]="yAxisTickFormatting"
             [roundDomains]="true">
-
-           
          </ngx-charts-line-chart>
       </div>
 
+      <br>
+      <h3>Desempenho por Classe</h3>
+
+      <table mat-table [dataSource]="resumoPorClasse" class="table table-striped table-bordered">
+      <ng-container matColumnDef="classe">
+         <th mat-header-cell *matHeaderCellDef> Classe </th>
+         <td mat-cell *matCellDef="let item"> {{ item.classe }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+         <th mat-header-cell *matHeaderCellDef> Jogos </th>
+         <td mat-cell *matCellDef="let item"> {{ item.total }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="vitorias">
+         <th mat-header-cell *matHeaderCellDef> Vitórias </th>
+         <td mat-cell *matCellDef="let item"> {{ item.vitorias }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="derrotas">
+         <th mat-header-cell *matHeaderCellDef> Derrotas </th>
+         <td mat-cell *matCellDef="let item"> {{ item.derrotas }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="percentual">
+         <th mat-header-cell *matHeaderCellDef> % Vitórias </th>
+         <td mat-cell *matCellDef="let item">
+            {{ item.percentual | number:'1.0-1' }}%
+         </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['classe','total','vitorias','derrotas','percentual']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['classe','total','vitorias','derrotas','percentual'];"></tr>
+      </table>
 
 
+
+      <br>
+      <h3>Jogos</h3>
 
       <!-- Tabela -->
       <table mat-table [dataSource]="jogos" class="table table-striped table-bordered">
@@ -197,6 +231,7 @@ export class PlayerHistoryComponent implements OnInit {
   ciclosDoJogador: { ciclo: string, classes: string[] }[] = [];
 
   todasClasses: string[] = [];
+   resumoPorClasse: any[] = [];
 
   totalJogos = 0;
   totalVitorias = 0;
@@ -218,6 +253,7 @@ export class PlayerHistoryComponent implements OnInit {
    yScaleMin = 0;
    yScaleMax = 0;
    classValues: Record<string, number> = {};
+   
 
 
 
@@ -273,7 +309,13 @@ export class PlayerHistoryComponent implements OnInit {
             : [] // ciclo sem jogos
       }));
 
+      let width = window.innerWidth;
+      console.log('Largura do gráfico:', width);
+      this.chartView = [width, 300]; // largura x altura do gráfico
+
       this.carregarTodasClasses();
+
+      this.resumoPorClasse = this.getResumoPorClasse();
    
   }
 
@@ -331,6 +373,41 @@ carregarTodasClasses() {
       ];
       
    }
+
+   getResumoPorClasse(): any[] {
+      const resumoMap = new Map<string, { total: number; vitorias: number; derrotas: number; percentual: number }>();
+
+      for (const jogo of this.jogos) {
+         const classe = jogo.classe?.toString() ?? 'Desconhecida';
+         if (!resumoMap.has(classe)) {
+            resumoMap.set(classe, { total: 0, vitorias: 0, derrotas: 0, percentual: 0 });
+         }
+
+         const stats = resumoMap.get(classe)!;
+         stats.total++;
+
+         const venceu =
+            (jogo.jogador1 === this.jogador && jogo.vitoria_j1) ||
+            (jogo.jogador2 === this.jogador && jogo.vitoria_j2);
+
+         if (venceu) {
+            stats.vitorias++;
+         } else {
+            stats.derrotas++;
+         }
+      }
+
+      // Calcular percentuais
+      for (const [classe, stats] of resumoMap) {
+         stats.percentual = stats.total > 0 ? (stats.vitorias / stats.total) * 100 : 0;
+      }
+
+      // Converter para array ordenado
+      return Array.from(resumoMap.entries())
+         .map(([classe, stats]) => ({ classe, ...stats }))
+         .sort((a, b) => Number(a.classe) - Number(b.classe));
+   }
+
 
   goBack() {
     this.router.navigate(['/jogadores']);
