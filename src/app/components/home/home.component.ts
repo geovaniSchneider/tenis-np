@@ -22,11 +22,21 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
-  supporters = [
-    'assets/apoiador1.png',
-    'assets/apoiador2.png',
-    'assets/apoiador3.png'
+export class HomeComponent{
+
+  apoiadores = [
+    {
+      nome: 'Apoiador 1 - Google',
+      link: 'https://www.google.com',
+      imgDesktop: 'assets/ap1_desktop.png',
+      imgMobile: 'assets/ap1_mobile.png'
+    },
+    {
+      nome: 'Apoiador 2 - Bing',
+      link: 'https://www.bing.com',
+      imgDesktop: 'assets/ap2_desktop.png',
+      imgMobile: 'assets/ap2_mobile.png'
+    }
   ];
 
   grupos = [

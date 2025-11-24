@@ -11,5 +11,6 @@ export const routes: Routes = [
   { path: 'jogador/:nome', component: PlayerHistoryComponent },
   { path: 'head-to-head', component: HeadToHeadComponent },
   { path: 'ranking-history', component: RankingHistoryComponent },
+  { path: 'prototype', loadComponent: () => import('./components/home-prototype/home-prototype.component').then(m => m.HomePrototypeComponent) },
   { path: '**', redirectTo: '' }
 ];

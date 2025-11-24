@@ -25,74 +25,8 @@ interface PlayerStats {
     RouterLink,
     MatSortModule
   ],
-  template: `
-    <div class="container mt-3">
-      
-      <!-- Botão voltar -->
-      <button mat-button color="primary" class="mb-3" (click)="goHome()">
-        &larr; Voltar para Home
-      </button>
-      
-      <h2>Jogadores</h2>
-
-      <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
-
-      <ng-container matColumnDef="rank">
-         <th mat-header-cell *matHeaderCellDef>#</th>
-         <td mat-cell *matCellDef="let jogador; let i = index">
-            {{ i + 1 }}
-         </td>
-      </ng-container>
-
-        <!-- Nome do jogador -->
-        <ng-container matColumnDef="nome">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Jogador </th>
-          <td mat-cell *matCellDef="let jogador">
-            <button mat-button color="primary" (click)="goHistory(jogador.nome)">
-              {{ jogador.nome }}
-            </button>
-          </td>
-        </ng-container>
-
-        <!-- Total de jogos -->
-        <ng-container matColumnDef="totalJogos">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Jogos </th>
-          <td mat-cell *matCellDef="let jogador">{{ jogador.totalJogos }}</td>
-        </ng-container>
-
-        <!-- Total de vitórias -->
-        <ng-container matColumnDef="totalVitorias">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vitórias </th>
-          <td mat-cell *matCellDef="let jogador">{{ jogador.totalVitorias }}</td>
-        </ng-container>
-
-        <!-- Percentual de vitórias -->
-        <ng-container matColumnDef="percVitorias">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> % Vitórias </th>
-          <td mat-cell *matCellDef="let jogador">
-            {{ jogador.percVitorias | number:'1.0-1' }}%
-          </td>
-        </ng-container>
-
-        <!-- Total de derrotas -->
-        <ng-container matColumnDef="totalDerrotas">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Derrotas </th>
-          <td mat-cell *matCellDef="let jogador">{{ jogador.totalDerrotas }}</td>
-        </ng-container>
-
-        <!-- Percentual de derrotas -->
-        <ng-container matColumnDef="percDerrotas">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> % Derrotas </th>
-          <td mat-cell *matCellDef="let jogador">
-            {{ jogador.percDerrotas | number:'1.0-1' }}%
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-  `
+  templateUrl: './player-list.component.html',
+  styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent implements OnInit {
   displayedColumns: string[] = [
@@ -108,7 +42,7 @@ export class PlayerListComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private ranking: RankingService, private router: Router) {}
+  constructor(private ranking: RankingService, private router: Router) { }
 
   ngOnInit() {
     this.ranking.getJogosObservable().subscribe(todosJogos => {

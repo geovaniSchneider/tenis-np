@@ -1,1 +1,119 @@
-<p>head-to-head works!</p>
+<div class="head-to-head-wrapper">
+    <div class="modern-container">
+
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <button mat-raised-button color="primary" class="back-btn" (click)="goHome()">
+                Voltar para Home
+            </button>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-header">
+            <h2>Head-to-Head</h2>
+        </div>
+
+        <!-- Player Selection -->
+        <div class="player-selection">
+            <mat-form-field appearance="fill" class="player-field">
+                <mat-label>Jogador A</mat-label>
+                <mat-select [(value)]="jogadorA" (selectionChange)="onJogadorAChange()">
+                    <mat-option *ngFor="let j of jogadores" [value]="j">{{ j }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="player-field">
+                <mat-label>Jogador B</mat-label>
+                <mat-select [(value)]="jogadorB" (selectionChange)="updateStats()" [disabled]="!jogadorA">
+                    <mat-option *ngFor="let j of jogadoresBDisponiveis" [value]="j">{{ j }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-cards" *ngIf="confrontos.length > 0">
+            <mat-card class="stat-card">
+                <mat-card-content>
+                    <h5>Total de confrontos</h5>
+                    <h3>{{ stats.total }}</h3>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <mat-card-content>
+                    <h5>Vitórias de {{ jogadorA }}</h5>
+                    <h3>{{ stats.vitoriasA }}</h3>
+                    <small>{{ (stats.vitoriasA / stats.total * 100) | number:'1.0-0' }}%</small>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <mat-card-content>
+                    <h5>Vitórias de {{ jogadorB }}</h5>
+                    <h3>{{ stats.vitoriasB }}</h3>
+                    <small>{{ (stats.vitoriasB / stats.total * 100) | number:'1.0-0' }}%</small>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container" *ngIf="confrontos.length > 0">
+            <table mat-table [dataSource]="confrontos" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="data">
+                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                    <td mat-cell *matCellDef="let jogo"> {{ jogo.data_jogo ? (jogo.data_jogo | date:'dd/MM/yyyy') : '-'
+                        }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ciclo">
+                    <th mat-header-cell *matHeaderCellDef> Ciclo </th>
+                    <td mat-cell *matCellDef="let jogo"> {{ jogo.ciclo }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="classe">
+                    <th mat-header-cell *matHeaderCellDef> Classe </th>
+                    <td mat-cell *matCellDef="let jogo"> {{ jogo.classe }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="jogador1">
+                    <th mat-header-cell *matHeaderCellDef> Jogador 1 </th>
+                    <td mat-cell *matCellDef="let jogo">
+                        <span [ngClass]="{'fw-bold': jogo.vitoria_j1}">{{ jogo.jogador1 }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="jogador2">
+                    <th mat-header-cell *matHeaderCellDef> Jogador 2 </th>
+                    <td mat-cell *matCellDef="let jogo">
+                        <span [ngClass]="{'fw-bold': jogo.vitoria_j2}">{{ jogo.jogador2 }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="set1">
+                    <th mat-header-cell *matHeaderCellDef> Set 1 </th>
+                    <td mat-cell *matCellDef="let jogo">{{ jogo.set1j1 ?? '-' }} x {{ jogo.set1j2 ?? '-' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="set2">
+                    <th mat-header-cell *matHeaderCellDef> Set 2 </th>
+                    <td mat-cell *matCellDef="let jogo">{{ jogo.set2j1 ?? '-' }} x {{ jogo.set2j2 ?? '-' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="set3">
+                    <th mat-header-cell *matHeaderCellDef> Set 3 </th>
+                    <td mat-cell *matCellDef="let jogo">{{ jogo.set3j1 ?? '-' }} x {{ jogo.set3j2 ?? '-' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="pontos">
+                    <th mat-header-cell *matHeaderCellDef> Pontos </th>
+                    <td mat-cell *matCellDef="let jogo">{{ jogo.pontos_j1 ?? 0 }} x {{ jogo.pontos_j2 ?? 0 }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+
+    </div>
+</div>

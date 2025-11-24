@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule],
-  template: `
-    <!-- <mat-toolbar color="primary">Ranking de Tênis</mat-toolbar> -->
-     <mat-toolbar style="background-color: blanchedalmond;">Ranking de Tênis</mat-toolbar>
-    <router-outlet></router-outlet>
-  `
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent { }

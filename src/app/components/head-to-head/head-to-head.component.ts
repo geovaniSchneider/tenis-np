@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
@@ -17,120 +18,11 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatSelectModule,
     MatTableModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule
   ],
-  template: `
-    <div class="container mt-3">
-
-      <!-- Botão voltar -->
-      <button mat-button color="primary" class="mb-3" (click)="goHome()">
-        &larr; Voltar para Home
-      </button>
-
-      <h2>Head-to-Head</h2>
-
-      <div class="row mb-3">
-        <!-- Jogador A -->
-        <div class="col-md-5">
-          <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Jogador A</mat-label>
-            <mat-select [(value)]="jogadorA" (selectionChange)="onJogadorAChange()">
-              <mat-option *ngFor="let j of jogadores" [value]="j">{{ j }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- Jogador B -->
-        <div class="col-md-5">
-          <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Jogador B</mat-label>
-            <mat-select [(value)]="jogadorB" (selectionChange)="updateStats()" [disabled]="!jogadorA">
-              <mat-option *ngFor="let j of jogadoresBDisponiveis" [value]="j">{{ j }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <!-- Cards com estatísticas -->
-      <div class="row mb-3" *ngIf="confrontos.length > 0">
-        <div class="col-md-4">
-          <mat-card class="text-center p-3">
-            <h5>Total de confrontos</h5>
-            <h3>{{ stats.total }}</h3>
-          </mat-card>
-        </div>
-        <div class="col-md-4">
-          <mat-card class="text-center p-3">
-            <h5>Vitórias de {{ jogadorA }}</h5>
-            <h3>{{ stats.vitoriasA }}</h3>
-            <small>{{ (stats.vitoriasA / stats.total * 100) | number:'1.0-0' }}%</small>
-          </mat-card>
-        </div>
-        <div class="col-md-4">
-          <mat-card class="text-center p-3">
-            <h5>Vitórias de {{ jogadorB }}</h5>
-            <h3>{{ stats.vitoriasB }}</h3>
-            <small>{{ (stats.vitoriasB / stats.total * 100) | number:'1.0-0' }}%</small>
-          </mat-card>
-        </div>
-      </div>
-
-      <!-- Tabela de confrontos -->
-      <table mat-table [dataSource]="confrontos" class="table table-striped table-bordered" *ngIf="confrontos.length > 0">
-        <ng-container matColumnDef="data">
-          <th mat-header-cell *matHeaderCellDef> Data </th>
-          <td mat-cell *matCellDef="let jogo"> {{ jogo.data_jogo ? (jogo.data_jogo | date:'dd/MM/yyyy') : '-' }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="ciclo">
-          <th mat-header-cell *matHeaderCellDef> Ciclo </th>
-          <td mat-cell *matCellDef="let jogo"> {{ jogo.ciclo }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="classe">
-          <th mat-header-cell *matHeaderCellDef> Classe </th>
-          <td mat-cell *matCellDef="let jogo"> {{ jogo.classe }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="jogador1">
-          <th mat-header-cell *matHeaderCellDef> Jogador 1 </th>
-          <td mat-cell *matCellDef="let jogo">
-            <span [ngClass]="{'fw-bold': jogo.vitoria_j1}">{{ jogo.jogador1 }}</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="jogador2">
-          <th mat-header-cell *matHeaderCellDef> Jogador 2 </th>
-          <td mat-cell *matCellDef="let jogo">
-            <span [ngClass]="{'fw-bold': jogo.vitoria_j2}">{{ jogo.jogador2 }}</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="set1">
-          <th mat-header-cell *matHeaderCellDef> Set 1 </th>
-          <td mat-cell *matCellDef="let jogo">{{ jogo.set1j1 ?? '-' }} x {{ jogo.set1j2 ?? '-' }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="set2">
-          <th mat-header-cell *matHeaderCellDef> Set 2 </th>
-          <td mat-cell *matCellDef="let jogo">{{ jogo.set2j1 ?? '-' }} x {{ jogo.set2j2 ?? '-' }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="set3">
-          <th mat-header-cell *matHeaderCellDef> Set 3 </th>
-          <td mat-cell *matCellDef="let jogo">{{ jogo.set3j1 ?? '-' }} x {{ jogo.set3j2 ?? '-' }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="pontos">
-          <th mat-header-cell *matHeaderCellDef> Pontos </th>
-          <td mat-cell *matCellDef="let jogo">{{ jogo.pontos_j1 ?? 0 }} x {{ jogo.pontos_j2 ?? 0 }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-  `
+  templateUrl: './head-to-head.component.html',
+  styleUrls: ['./head-to-head.component.scss']
 })
 export class HeadToHeadComponent implements OnInit {
   todosJogos: any[] = [];
@@ -150,7 +42,7 @@ export class HeadToHeadComponent implements OnInit {
     private ranking: RankingService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const jogos = this.ranking.getAllJogos();
