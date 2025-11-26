@@ -17,40 +17,52 @@ export class CsvService {
     { ciclo: '2025.3', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2NBbDFEr9yyveTcrKUXtpVeaayAiYIkeGbX2BoapbRAMd8n-F6uttALXKzdVObNSdzy9a2_u1PqAQ/pub?gid=562202993&single=true&output=csv' },
   ];
 
+  private loadingSubject = new BehaviorSubject<boolean>(true);
+  loading$ = this.loadingSubject.asObservable();
+
   constructor(private http: HttpClient) {
     this.loadCsv();
   }
 
   private loadCsv() {
-    this.http.get('jogos.csv', { responseType: 'text' })
-      .subscribe(text => {
-        const parsed = this.parseCsv(text);
-        // this.jogosSubject.next(parsed);
+    const requests = [
+      this.http.get('jogos.csv', { responseType: 'text' }),
+      ...this.tabelasAtuais.map(t => this.http.get(t.link, { responseType: 'text' }))
+    ];
 
-        const atual = this.jogosSubject.getValue();
-        this.jogosSubject.next([...atual, ...parsed]);
+    import('rxjs').then(({ forkJoin }) => {
+      forkJoin(requests).subscribe({
+        next: (responses) => {
+          let allJogos: Jogo[] = [];
+
+          // Process local jogos.csv (first response)
+          const localCsv = responses[0];
+          if (localCsv) {
+            allJogos = [...allJogos, ...this.parseCsv(localCsv)];
+          }
+
+          // Process external sheets (rest of responses)
+          for (let i = 0; i < this.tabelasAtuais.length; i++) {
+            const csvText = responses[i + 1];
+            const config = this.tabelasAtuais[i];
+            if (csvText) {
+              allJogos = [...allJogos, ...this.parseCsv(csvText, config.ciclo, config.classe)];
+            }
+          }
+
+          this.jogosSubject.next(allJogos);
+          this.loadingSubject.next(false);
+        },
+        error: (err) => {
+          console.error('Erro ao carregar CSVs', err);
+          this.loadingSubject.next(false);
+        }
       });
-
-
-      this.tabelasAtuais.forEach(tabela => {
-        
-        this.http.get(tabela.link, { responseType: 'text' })
-          .subscribe(text => {
-            const parsed = this.parseCsv(text,tabela.ciclo,tabela.classe);
-
-            const atual = this.jogosSubject.getValue();
-            this.jogosSubject.next([...atual, ...parsed]);
-
-          });
-
-      });
-
-    
-      
+    });
   }
 
 
-  private parseCsv(csvText: string, ciclo: string='', classe: string=''): Jogo[] {
+  private parseCsv(csvText: string, ciclo: string = '', classe: string = ''): Jogo[] {
     const jogos: Jogo[] = [];
 
     // Usando PapaParse para ler o CSV
@@ -58,33 +70,33 @@ export class CsvService {
 
     for (const row of parsed.data as any[]) {
 
-      if(!row['Jogador 1']){
+      if (!row['Jogador 1']) {
         continue;
       }
 
-      if(ciclo){
+      if (ciclo) {
         row.CICLO = ciclo;
       }
 
-      if(classe){
+      if (classe) {
         row.CLASSE = classe;
       }
-      
+
       const datePart = row['Data do jogo'];
       const timePart = '00:00:00'
 
       let data_jogo: Date | null = null;
       if (datePart) {
-         // Se vier no formato dd/MM/yyyy
-         if (datePart.includes('/')) {
-            const [dia, mes, ano] = datePart.split('/');
-            data_jogo = new Date(`${ano}-${mes}-${dia}T${timePart}`);
-         }
-         // Se vier no formato yyyy-MM-dd
-         else if (datePart.includes('-')) {
-            const [ano, mes, dia] = datePart.split('-');
-            data_jogo = new Date(`${ano}-${mes}-${dia}T${timePart}`);
-         }
+        // Se vier no formato dd/MM/yyyy
+        if (datePart.includes('/')) {
+          const [dia, mes, ano] = datePart.split('/');
+          data_jogo = new Date(`${ano}-${mes}-${dia}T${timePart}`);
+        }
+        // Se vier no formato yyyy-MM-dd
+        else if (datePart.includes('-')) {
+          const [ano, mes, dia] = datePart.split('-');
+          data_jogo = new Date(`${ano}-${mes}-${dia}T${timePart}`);
+        }
       }
 
       // Criando o objeto Jogo baseado no CSV conhecido

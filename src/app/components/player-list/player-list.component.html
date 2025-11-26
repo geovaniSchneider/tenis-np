@@ -13,8 +13,14 @@
             <h2>Jogadores</h2>
         </div>
 
+        <!-- Loading State -->
+        <div *ngIf="loading$ | async" class="loading-state">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Carregando dados...</p>
+        </div>
+
         <!-- Table -->
-        <div class="table-container">
+        <div class="table-container" *ngIf="!(loading$ | async)">
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                 <ng-container matColumnDef="rank">

@@ -5,6 +5,7 @@ import { RankingService } from '../../services/ranking.service';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 interface PlayerStats {
   nome: string;
@@ -23,7 +24,8 @@ interface PlayerStats {
     MatTableModule,
     MatButtonModule,
     RouterLink,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './player-list.component.html',
   styleUrls: ['./player-list.component.scss']
@@ -39,10 +41,13 @@ export class PlayerListComponent implements OnInit {
     'percDerrotas'
   ];
   dataSource = new MatTableDataSource<PlayerStats>([]);
+  loading$;
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private ranking: RankingService, private router: Router) { }
+  constructor(private ranking: RankingService, private router: Router) {
+    this.loading$ = this.ranking.loading$;
+  }
 
   ngOnInit() {
     this.ranking.getJogosObservable().subscribe(todosJogos => {

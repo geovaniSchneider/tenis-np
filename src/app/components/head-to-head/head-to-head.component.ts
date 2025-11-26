@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
@@ -19,7 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatCardModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './head-to-head.component.html',
   styleUrls: ['./head-to-head.component.scss']
@@ -33,6 +35,7 @@ export class HeadToHeadComponent implements OnInit {
   jogadorB: string = '';
   confrontos: any[] = [];
   stats: any = { total: 0, vitoriasA: 0, vitoriasB: 0 };
+  loading$;
 
   displayedColumns: string[] = [
     'data', 'ciclo', 'classe', 'jogador1', 'jogador2', 'set1', 'set2', 'set3', 'pontos'
@@ -42,22 +45,17 @@ export class HeadToHeadComponent implements OnInit {
     private ranking: RankingService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.loading$ = this.ranking.loading$;
+  }
 
   ngOnInit() {
-    const jogos = this.ranking.getAllJogos();
-    if (jogos && jogos.length > 0) {
+    this.ranking.getJogosObservable().subscribe(jogos => {
+      if (!jogos || jogos.length === 0) return;
+
       this.todosJogos = jogos;
       this.preencherJogadores(jogos);
-    }
-
-    // Caso use Observable
-    if ((this.ranking as any).getAllJogosObservable) {
-      (this.ranking as any).getAllJogosObservable().subscribe((jogos: any[]) => {
-        this.todosJogos = jogos;
-        this.preencherJogadores(jogos);
-      });
-    }
+    });
   }
 
   preencherJogadores(jogos: any[]) {

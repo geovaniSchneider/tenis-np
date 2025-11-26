@@ -2,6 +2,35 @@
 @use "bootstrap/scss/bootstrap";
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+/* Color Palette - Based on Clay Court (Saibro) & Tennis Ball */
+:root {
+  /* Primary Colors - Clay Court Brown (Saibro) - Darker Tones */
+  --primary-color: #5C3317;
+  --primary-light: #704214;
+  --primary-dark: #3E2723;
+  --primary-hover: #6B3E1A;
+
+  /* Accent Colors - Yellow/Gold (Tennis Ball) */
+  --accent-color: #F4C430;
+  --accent-light: #FFD966;
+  --accent-dark: #D4A520;
+
+  /* Secondary Colors */
+  --secondary-color: #FF8C00;
+  --secondary-light: #FFA533;
+
+  /* Neutral Colors */
+  --bg-light: #F5F7F5;
+  --bg-white: #FFFFFF;
+  --text-dark: #3E2723;
+  --text-medium: #486581;
+  --text-light: #627d98;
+  --border-color: #E2E8F0;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%);
+}
 
 html,
 body,
@@ -24,7 +53,7 @@ body {
   align-items: center;
   padding: 16px;
 
-  background-color: rgb(252, 255, 252);
+  background-color: var(--bg-light);
 
 }
 
@@ -57,12 +86,13 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0 0 4px;
+  color: var(--text-dark);
 }
 
 .subtitle {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--text-medium);
 }
 
 .cards-section {
@@ -81,6 +111,7 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 8px 0 0;
+  color: var(--text-dark);
 }
 
 .classe-actions {
@@ -106,6 +137,7 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 4px 0 12px;
+  color: var(--text-dark);
 }
 
 .outros-links {

@@ -6,16 +6,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
   selector: 'app-player-history',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule, NgxChartsModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule, NgxChartsModule, MatProgressSpinnerModule],
   templateUrl: './player-history.component.html',
   styleUrls: ['./player-history.component.scss']
 })
 export class PlayerHistoryComponent implements OnInit {
   jogador: string = '';
+  loading$;
   jogos: any[] = [];
   displayedColumns: string[] = [
     'ciclo',
@@ -55,77 +57,75 @@ export class PlayerHistoryComponent implements OnInit {
   yScaleMax = 0;
   classValues: Record<string, number> = {};
 
-
-
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private ranking: RankingService
-  ) { }
+  ) {
+    this.loading$ = this.ranking.loading$;
+  }
 
   ngOnInit() {
     this.jogador = this.route.snapshot.paramMap.get('nome') || '';
 
-    // Pegar todos os jogos do jogador e ordenar por data
-    this.jogos = this.ranking.getJogosDoJogador(this.jogador).sort((a, b) => {
-      const dateA = a.data_jogo ? new Date(a.data_jogo).getTime() : null;
-      const dateB = b.data_jogo ? new Date(b.data_jogo).getTime() : null;
+    this.ranking.getJogosObservable().subscribe(todosJogos => {
+      if (!todosJogos || todosJogos.length === 0) return;
 
-      if (dateA === null && dateB !== null) return -1;
-      if (dateB === null && dateA !== null) return 1;
-      if (dateA === null && dateB === null) return 0;
+      // Pegar todos os jogos do jogador e ordenar por data
+      this.jogos = todosJogos.filter(
+        j => j.jogador1 === this.jogador || j.jogador2 === this.jogador
+      ).sort((a, b) => {
+        const dateA = a.data_jogo ? new Date(a.data_jogo).getTime() : null;
+        const dateB = b.data_jogo ? new Date(b.data_jogo).getTime() : null;
 
-      return dateA! - dateB!;
-    });
+        if (dateA === null && dateB !== null) return -1;
+        if (dateB === null && dateA !== null) return 1;
+        if (dateA === null && dateB === null) return 0;
 
-    this.totalJogos = this.jogos.length;
-    this.totalVitorias = this.jogos.filter(
-      j =>
-        (j.jogador1 === this.jogador && j.vitoria_j1) ||
-        (j.jogador2 === this.jogador && j.vitoria_j2)
-    ).length;
-    this.totalDerrotas = this.totalJogos - this.totalVitorias;
+        return dateA! - dateB!;
+      });
 
+      this.totalJogos = this.jogos.length;
+      this.totalVitorias = this.jogos.filter(
+        j =>
+          (j.jogador1 === this.jogador && j.vitoria_j1) ||
+          (j.jogador2 === this.jogador && j.vitoria_j2)
+      ).length;
+      this.totalDerrotas = this.totalJogos - this.totalVitorias;
 
+      // --- Montar lista de ciclos e classes ---
+      const todosCiclos = Array.from(new Set(todosJogos.map(j => j.ciclo))).sort();
 
+      const ciclosMap = new Map<string, Set<string>>();
 
-    // --- Montar lista de ciclos e classes ---
-    const todosJogos = this.ranking.getAllJogos(); // todos os jogos do CSV
-    const todosCiclos = Array.from(new Set(todosJogos.map(j => j.ciclo))).sort();
-
-    const ciclosMap = new Map<string, Set<string>>();
-
-    for (const jogo of this.jogos) {
-      if (!ciclosMap.has(jogo.ciclo)) {
-        ciclosMap.set(jogo.ciclo, new Set());
+      for (const jogo of this.jogos) {
+        if (!ciclosMap.has(jogo.ciclo)) {
+          ciclosMap.set(jogo.ciclo, new Set());
+        }
+        ciclosMap.get(jogo.ciclo)!.add(jogo.classe);
       }
-      ciclosMap.get(jogo.ciclo)!.add(jogo.classe);
-    }
 
-    this.ciclosDoJogador = todosCiclos.map(ciclo => ({
-      ciclo,
-      classes: ciclosMap.has(ciclo)
-        ? Array.from(ciclosMap.get(ciclo)!)
-        : [] // ciclo sem jogos
-    }));
+      this.ciclosDoJogador = todosCiclos.map(ciclo => ({
+        ciclo,
+        classes: ciclosMap.has(ciclo)
+          ? Array.from(ciclosMap.get(ciclo)!)
+          : [] // ciclo sem jogos
+      }));
 
-    let width = window.innerWidth;
-    console.log('Largura do gráfico:', width);
-    this.chartView = [width, 300]; // largura x altura do gráfico
+      let width = window.innerWidth;
+      this.chartView = [width, 300]; // largura x altura do gráfico
 
-    this.carregarTodasClasses();
+      this.carregarTodasClasses(todosJogos);
 
-    this.resumoPorClasse = this.getResumoPorClasse();
-
+      this.resumoPorClasse = this.getResumoPorClasse();
+    });
   }
 
   yAxisTickFormatting = (val: number) => {
     return this.classValues[val.toString()] ?? '';
   };
 
-  carregarTodasClasses() {
-    const todosJogos = this.ranking.getAllJogos();
+  carregarTodasClasses(todosJogos: any[]) {
     const classesSet = new Set<string>();
 
     for (const jogo of todosJogos) {

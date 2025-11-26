@@ -35,7 +35,11 @@ export class RankingService {
   // Pontos por vitória (configurável aqui)
   winPoints = 3;
 
-  constructor(private csv: CsvService) {}
+  constructor(private csv: CsvService) { }
+
+  get loading$() {
+    return this.csv.loading$;
+  }
 
   /** Retorna lista de ciclos existentes (ordenada) */
   getCycles(): string[] {
@@ -44,18 +48,18 @@ export class RankingService {
     return ciclos.sort();
   }
 
-   getAllJogos(): Jogo[] {
+  getAllJogos(): Jogo[] {
     return this.csv.getAllJogos();
   }
 
-   /** Retorna todos os jogos de um jogador */
+  /** Retorna todos os jogos de um jogador */
   getJogosDoJogador(nome: string): Jogo[] {
     return this.csv.getAllJogos().filter(
       j => j.jogador1 === nome || j.jogador2 === nome
     );
   }
 
-   /** Retorna todos os confrontos diretos entre dois jogadores */
+  /** Retorna todos os confrontos diretos entre dois jogadores */
   getHeadToHead(jogadorA: string, jogadorB: string): Jogo[] {
     return this.csv.getAllJogos().filter(j =>
       (j.jogador1 === jogadorA && j.jogador2 === jogadorB) ||
@@ -92,8 +96,8 @@ export class RankingService {
   }
 
   getJogosObservable() {
-   return this.csv.getJogosObservable();
-   }
+    return this.csv.getJogosObservable();
+  }
 
   /** Retorna estatísticas (pts, sets, games, vitórias, derrotas) por jogador para uma dada classe dentro de um ciclo */
   computeStatsForCycleClass(ciclo: string, classe: string): PlayerStats[] {

@@ -47,6 +47,21 @@
   }
 }
 
+// Loading State
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+
+  p {
+    margin-top: 20px;
+    color: #486581;
+    font-size: 1rem;
+  }
+}
+
 // Player Selection
 .player-selection {
   display: flex;

@@ -2,16 +2,16 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    background: linear-gradient(135deg, #F5EBE0 0%, #E8DCC8 100%);
 }
 
 .global-header {
     display: flex;
     justify-content: center;
     padding: 30px 20px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(92, 51, 23, 0.1);
 
     .logo-area {
         display: flex;
@@ -22,7 +22,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(92, 51, 23, 0.15);
             border: 3px solid white;
         }
 
@@ -30,13 +30,13 @@
             h1 {
                 margin: 0;
                 font-size: 1.8rem;
-                color: #102a43;
+                color: var(--primary-color);
                 font-weight: 700;
                 font-family: 'Inter', sans-serif;
             }
 
             span {
-                color: #486581;
+                color: var(--primary-light);
                 font-size: 0.9rem;
                 text-transform: uppercase;
                 letter-spacing: 1px;
