@@ -43,7 +43,9 @@ export class PlayerListComponent implements OnInit {
   dataSource = new MatTableDataSource<PlayerStats>([]);
   loading$;
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) set sort(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private ranking: RankingService, private router: Router) {
     this.loading$ = this.ranking.loading$;
@@ -83,7 +85,6 @@ export class PlayerListComponent implements OnInit {
       // ordenação inicial por nome
       playersStats.sort((a, b) => a.nome.localeCompare(b.nome));
       this.dataSource.data = playersStats;
-      this.dataSource.sort = this.sort;
     });
   }
 
