@@ -32,6 +32,7 @@
       </div>
     </div>
 
+
     <!-- Main Actions -->
     <div class="main-actions">
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/jogadores']">
@@ -45,17 +46,19 @@
       </a>
     </div>
 
+    <h2 class="titulo-pagina text-center">Links Ciclo 2025.3</h2>
+
     <!-- Classes Grid -->
     <div class="classes-grid">
       <mat-card *ngFor="let classe of grupos" class="modern-card">
-        <mat-card-header>
+        <mat-card-header class="d-flex justify-content-center">
           <mat-card-title>{{ classe.nome }}</mat-card-title>
         </mat-card-header>
-        <mat-card-actions align="end">
-          <a mat-button color="primary" [href]="classe.linkFormulario" target="_blank" rel="noopener noreferrer">
+        <mat-card-actions>
+          <a mat-raised-button color="primary" [href]="classe.linkFormulario" target="_blank" rel="noopener noreferrer">
             Lançar resultado
           </a>
-          <a mat-button [href]="classe.linkTabela" target="_blank" rel="noopener noreferrer">
+          <a mat-raised-button color="secondary" [href]="classe.linkTabela" target="_blank" rel="noopener noreferrer">
             Tabela
           </a>
         </mat-card-actions>
@@ -63,12 +66,12 @@
     </div>
 
     <!-- Footer Links -->
-    <div class="footer-links">
-      <a mat-button href="https://drive.google.com/file/d/1hmsqmIIRPxeXQEtUcHBCvZycAFMI4roL/view" target="_blank"
+    <div class="footer-links" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <a mat-raised-button href="https://drive.google.com/file/d/1hmsqmIIRPxeXQEtUcHBCvZycAFMI4roL/view" target="_blank"
         rel="noopener noreferrer">
         Regulamento
       </a>
-      <a mat-button href="https://docs.google.com/spreadsheets/d/1owxV0YTm_SKMNC5XfjwF80GE8UtLHqx7EaCavLpGq4g"
+      <a mat-raised-button href="https://docs.google.com/spreadsheets/d/1owxV0YTm_SKMNC5XfjwF80GE8UtLHqx7EaCavLpGq4g"
         target="_blank" rel="noopener noreferrer">
         Simulador de resultado
       </a>

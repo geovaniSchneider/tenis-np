@@ -78,11 +78,6 @@
         transition: transform 0.2s, box-shadow 0.2s;
         background: white;
 
-        &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(45, 80, 22, 0.15);
-        }
-
         mat-card-header {
             padding: 16px 16px 0;
         }
@@ -96,6 +91,9 @@
         mat-card-actions {
             padding: 8px 16px 16px;
             gap: 8px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
     }
 }
@@ -123,4 +121,10 @@
             width: 100%;
         }
     }
+}
+
+.titulo-pagina {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
 }

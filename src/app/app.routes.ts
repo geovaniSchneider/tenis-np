@@ -4,9 +4,11 @@ import { PlayerListComponent } from './components/player-list/player-list.compon
 import { PlayerHistoryComponent } from './components/player-history/player-history.component';
 import { HeadToHeadComponent } from './components/head-to-head/head-to-head.component';
 import { RankingHistoryComponent } from './components/ranking-history/ranking-history.component';
+import { EmBreveComponent } from './components/em-breve/em-breve.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, title: 'Tênis NP - Home' }, // agora a home é a inicial
+  { path: '', component: EmBreveComponent, title: 'Tênis NP - Novidades em Breve' },
+  { path: 'home', component: HomeComponent, title: 'Tênis NP - Home' },
   { path: 'jogadores', component: PlayerListComponent, title: 'Tênis NP - Lista de Jogadores' },
   { path: 'jogador/:nome', component: PlayerHistoryComponent, title: 'Tênis NP - Análise do Jogador' },
   { path: 'head-to-head', component: HeadToHeadComponent, title: 'Tênis NP - Comparativo entre Jogadores' },
