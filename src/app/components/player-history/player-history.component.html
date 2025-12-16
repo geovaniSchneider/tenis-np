@@ -129,35 +129,35 @@
                     </ng-container>
 
                     <ng-container matColumnDef="jogador1">
-                        <th mat-header-cell *matHeaderCellDef> Jogador 1 </th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Jogador 1</th>
                         <td mat-cell *matCellDef="let jogo">
                             <span [ngClass]="{'fw-bold': jogo.vitoria_j1}">{{ jogo.jogador1 }}</span>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="jogador2">
-                        <th mat-header-cell *matHeaderCellDef> Jogador 2 </th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Jogador 2</th>
                         <td mat-cell *matCellDef="let jogo">
                             <span [ngClass]="{'fw-bold': jogo.vitoria_j2}">{{ jogo.jogador2 }}</span>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="set1">
-                        <th mat-header-cell *matHeaderCellDef> Set 1 </th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Set 1</th>
                         <td mat-cell *matCellDef="let jogo">
                             {{ jogo.set1j1 ?? '-' }} x {{ jogo.set1j2 ?? '-' }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="set2">
-                        <th mat-header-cell *matHeaderCellDef> Set 2 </th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Set 2</th>
                         <td mat-cell *matCellDef="let jogo">
                             {{ jogo.set2j1 ?? '-' }} x {{ jogo.set2j2 ?? '-' }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="set3">
-                        <th mat-header-cell *matHeaderCellDef> Set 3 </th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Set 3</th>
                         <td mat-cell *matCellDef="let jogo">
                             {{ jogo.set3j1 ?? '-' }} x {{ jogo.set3j2 ?? '-' }}
                         </td>

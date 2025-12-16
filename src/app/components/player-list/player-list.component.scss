@@ -73,7 +73,7 @@
 .table-container {
     background: white;
     border-radius: 12px;
-    overflow: hidden;
+    // Removed overflow: hidden to allow th sticky to work relative to viewport on desktop
     box-shadow: 0 4px 16px rgba(107, 68, 35, 0.15);
 
     table {
@@ -86,6 +86,29 @@
             font-size: 1rem;
             padding: 16px;
             letter-spacing: 0.3px;
+
+            // Sticky header configuration
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Visual separation when scrolling
+        }
+
+        // Apply border radius to corners since container overflow is visible
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 12px;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 12px;
         }
 
         // Sort arrow styling
@@ -130,7 +153,11 @@
 // Responsive
 @media (max-width: 600px) {
     .table-container {
-        overflow-x: auto;
+        // Habilita scroll interno (horizontal e vertical)
+        // Isso permite que o sticky header funcione dentro do container
+        overflow: auto;
+        max-height: 70vh; // Limita altura para forçar scroll interno
+        -webkit-overflow-scrolling: touch;
     }
 
     .page-header h2 {
