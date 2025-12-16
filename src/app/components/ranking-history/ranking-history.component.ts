@@ -39,7 +39,7 @@ export class RankingHistoryComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router,) { }
 
   ngOnInit(): void {
-    this.http.get('ciclos.csv', { responseType: 'text' })
+    this.http.get('/ciclos.csv', { responseType: 'text' })
       .subscribe({
         next: (csvData) => {
           this.dados = this.parseCsv(csvData);

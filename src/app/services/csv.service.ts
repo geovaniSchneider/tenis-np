@@ -26,7 +26,7 @@ export class CsvService {
 
   private loadCsv() {
     const requests = [
-      this.http.get('jogos.csv', { responseType: 'text' }),
+      this.http.get('/jogos.csv', { responseType: 'text' }),
       ...this.tabelasAtuais.map(t => this.http.get(t.link, { responseType: 'text' }))
     ];
 
