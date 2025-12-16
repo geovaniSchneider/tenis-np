@@ -28,14 +28,14 @@ export class HomeComponent implements OnInit {
     {
       nome: 'Apoiador 1 - Google',
       link: 'https://www.google.com',
-      imgDesktop: 'assets/ap1_desktop.png',
-      imgMobile: 'assets/ap1_mobile.png'
+      imgDesktop: '/assets/ap1_desktop.png',
+      imgMobile: '/assets/ap1_mobile.png'
     },
     {
       nome: 'Apoiador 2 - Bing',
       link: 'https://www.bing.com',
-      imgDesktop: 'assets/ap2_desktop.png',
-      imgMobile: 'assets/ap2_mobile.png'
+      imgDesktop: '/assets/ap2_desktop.png',
+      imgMobile: '/assets/ap2_mobile.png'
     }
   ];
 
