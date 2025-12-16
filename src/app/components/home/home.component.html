@@ -8,7 +8,8 @@
         <div id="carouselApoiadores" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"
           *ngIf="apoiadores.length > 0">
           <div class="carousel-inner">
-            <div class="carousel-item" *ngFor="let apoiador of apoiadores; let i = index" [class.active]="i === 0">
+            <div class="carousel-item" *ngFor="let apoiador of apoiadores; let i = index"
+              [class.active]="i === indiceInicialCarrossel">
               <a [href]="apoiador.link" target="_blank" rel="noopener noreferrer">
                 <picture>
                   <source [srcset]="apoiador.imgMobile" media="(max-width: 768px)" />
@@ -36,20 +37,20 @@
     <!-- Main Actions -->
     <div class="main-actions">
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/jogadores']">
-        <mat-icon>groups</mat-icon>
+        <mat-icon fontIcon="groups"></mat-icon>
         Jogadores
       </a>
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/ranking-history']">
-        <mat-icon>history</mat-icon>
+        <mat-icon fontIcon="history"></mat-icon>
         Histórico
       </a>
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/head-to-head']">
-        <mat-icon>compare_arrows</mat-icon>
+        <mat-icon fontIcon="compare_arrows"></mat-icon>
         Head-to-Head
       </a>
     </div>
 
-    <h2 class="titulo-pagina text-center">Links Ciclo 2025.3</h2>
+    <h2 class="titulo-pagina text-center">Links do Ciclo {{cicloAtual}}</h2>
 
     <!-- Classes Grid -->
     <div class="classes-grid">
