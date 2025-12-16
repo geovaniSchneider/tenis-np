@@ -25,10 +25,20 @@ export class CsvService {
   }
 
   private loadCsv() {
+    // const requests = [
+    //   this.http.get('/jogos.csv', { responseType: 'text' }),
+    //   ...this.tabelasAtuais.map(t => this.http.get(t.link, { responseType: 'text' }))
+    // ];
+
+    const origin = window.location.origin;
+
     const requests = [
-      this.http.get('/jogos.csv', { responseType: 'text' }),
-      ...this.tabelasAtuais.map(t => this.http.get(t.link, { responseType: 'text' }))
+      this.http.get(`${origin}/jogos.csv`, { responseType: 'text' }),
+      ...this.tabelasAtuais.map(t =>
+        this.http.get(`${origin}/${t.link.replace(/^\//, '')}`, { responseType: 'text' })
+      )
     ];
+
 
     import('rxjs').then(({ forkJoin }) => {
       forkJoin(requests).subscribe({
