@@ -34,8 +34,7 @@ export class CsvService {
 
     const requests = [
       this.http.get(`${origin}/jogos.csv`, { responseType: 'text' }),
-      ...this.tabelasAtuais.map(t =>
-        this.http.get(t.link, { responseType: 'text' })
+      ...this.tabelasAtuais.map(t => this.http.get(t.link, { responseType: 'text' })
       )
     ];
 
