@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build && robocopy docs\\browser docs /MOVE /E && copy docs\\index.html docs\\404.html",
     "build-old": "ng build --base-href /tenis-np/ && robocopy docs\\browser docs /MOVE /E && copy docs\\index.html docs\\404.html",
+    "build-teste": "ng build --base-href / && robocopy docs\\browser docs /MOVE /E && copy docs\\index.html docs\\404.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
