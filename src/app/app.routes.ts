@@ -13,6 +13,5 @@ export const routes: Routes = [
   { path: 'jogador/:nome', component: PlayerHistoryComponent, title: 'Tênis NP - Análise do Jogador' },
   { path: 'head-to-head', component: HeadToHeadComponent, title: 'Tênis NP - Comparativo entre Jogadores' },
   { path: 'ranking-history', component: RankingHistoryComponent, title: 'Tênis NP - Histórico do Ranking' },
-  { path: 'prototype', loadComponent: () => import('./components/home-prototype/home-prototype.component').then(m => m.HomePrototypeComponent), title: 'Tênis NP - Protótipo' },
   { path: '**', redirectTo: '' }
 ];
