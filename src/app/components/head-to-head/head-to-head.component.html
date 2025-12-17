@@ -63,6 +63,12 @@
                 </mat-card>
             </div>
 
+            <!-- Mobile Scroll Hint -->
+            <p class="scroll-hint" *ngIf="confrontos.length > 0">
+                <mat-icon>swipe</mat-icon>
+                Deslize para o lado para visualizar todas as colunas
+            </p>
+
             <!-- Table -->
             <div class="table-container" *ngIf="confrontos.length > 0">
                 <table mat-table [dataSource]="confrontos" class="mat-elevation-z8">
