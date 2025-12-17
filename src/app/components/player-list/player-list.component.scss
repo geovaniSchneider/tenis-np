@@ -150,8 +150,33 @@
     }
 }
 
+
+// Mobile Scroll Hint
+.scroll-hint {
+    display: none;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6B4423;
+    margin-bottom: 10px;
+    font-style: italic;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    opacity: 0.8;
+
+    mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
 // Responsive
 @media (max-width: 600px) {
+    .scroll-hint {
+        display: flex; // Show on mobile
+    }
+
     .table-container {
         // Habilita scroll interno (horizontal e vertical)
         // Isso permite que o sticky header funcione dentro do container

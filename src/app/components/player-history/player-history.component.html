@@ -64,6 +64,7 @@
                 </div>
             </div>
 
+
             <!-- Performance by Class Table -->
             <div class="section-header mt-5">
                 <h3>Desempenho por Classe</h3>
@@ -98,7 +99,8 @@
                         </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="['classe','total','vitorias','derrotas','percentual']"></tr>
+                    <tr mat-header-row *matHeaderRowDef="['classe','total','vitorias','derrotas','percentual']">
+                    </tr>
                     <tr mat-row *matRowDef="let row; columns: ['classe','total','vitorias','derrotas','percentual'];">
                     </tr>
                 </table>
@@ -108,6 +110,12 @@
             <div class="section-header">
                 <h3>Jogos</h3>
             </div>
+
+            <!-- Mobile Scroll Hint -->
+            <p class="scroll-hint">
+                <mat-icon>swipe</mat-icon>
+                Deslize para o lado para visualizar todas as colunas
+            </p>
 
             <div class="table-container">
                 <table mat-table [dataSource]="jogos" class="mat-elevation-z8">
@@ -124,7 +132,8 @@
 
                     <ng-container matColumnDef="data">
                         <th mat-header-cell *matHeaderCellDef> Data </th>
-                        <td mat-cell *matCellDef="let jogo"> {{ jogo.data_jogo ? (jogo.data_jogo | date:'dd/MM/yyyy') :
+                        <td mat-cell *matCellDef="let jogo"> {{ jogo.data_jogo ? (jogo.data_jogo |
+                            date:'dd/MM/yyyy') :
                             '' }} </td>
                     </ng-container>
 

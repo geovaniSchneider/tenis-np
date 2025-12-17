@@ -7,11 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
   selector: 'app-player-history',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule, NgxChartsModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatCardModule, NgxChartsModule, MatProgressSpinnerModule, MatIconModule],
   templateUrl: './player-history.component.html',
   styleUrls: ['./player-history.component.scss']
 })
