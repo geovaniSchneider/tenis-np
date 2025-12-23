@@ -7,6 +7,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+// Services
+import { RankingService } from '../../services/ranking.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   standalone: true,
   templateUrl: './home.component.html',
@@ -52,13 +57,38 @@ export class HomeComponent implements OnInit {
   // Índice inicial aleatório para o carrossel
   indiceInicialCarrossel = 0;
 
-  constructor(private router: Router) { }
+  // Estatísticas do ranking
+  totalJogos = 0;
+  jogosCicloAtual = 0;
+  loading$;
+
+  constructor(
+    private router: Router,
+    private rankingService: RankingService
+  ) {
+    this.loading$ = this.rankingService.loading$;
+  }
 
   ngOnInit(): void {
     // Gera um índice aleatório entre 0 e o número de apoiadores - 1
     if (this.apoiadores.length > 0) {
       this.indiceInicialCarrossel = Math.floor(Math.random() * this.apoiadores.length);
     }
+
+    // Calcula estatísticas do ranking usando Observable
+    this.calcularEstatisticasRanking();
+  }
+
+  calcularEstatisticasRanking(): void {
+    // Subscribe ao Observable para obter os dados quando estiverem disponíveis
+    this.rankingService.getJogosObservable().subscribe(todosJogos => {
+      // Total de jogos do ranking
+      this.totalJogos = todosJogos.length;
+
+      // Jogos do ciclo atual
+      const jogosCiclo = todosJogos.filter(j => j.ciclo === this.cicloAtual);
+      this.jogosCicloAtual = jogosCiclo.length;
+    });
   }
 
   abrirPagina(link: string) {

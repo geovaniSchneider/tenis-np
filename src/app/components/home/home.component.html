@@ -34,20 +34,49 @@
     </div>
 
 
+
     <!-- Main Actions -->
     <div class="main-actions">
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/jogadores']">
         <mat-icon fontIcon="groups"></mat-icon>
         Jogadores
       </a>
-      <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/ranking-history']">
-        <mat-icon fontIcon="history"></mat-icon>
-        Histórico
-      </a>
       <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/head-to-head']">
         <mat-icon fontIcon="compare_arrows"></mat-icon>
         Head-to-Head
       </a>
+      <a mat-raised-button color="primary" class="action-btn" [routerLink]="['/ranking-history']">
+        <mat-icon fontIcon="history"></mat-icon>
+        Histórico
+      </a>
+    </div>
+
+    <h2 class="titulo-pagina text-center">Estatísticas</h2>
+
+    <!-- Ranking Statistics -->
+    <div class="ranking-stats">
+      <!-- Loading State -->
+      <div *ngIf="loading$ | async" class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Carregando estatísticas...</p>
+      </div>
+
+      <!-- Statistics Cards -->
+      <ng-container *ngIf="!(loading$ | async)">
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-value">{{ totalJogos | number:'1.0-0':'pt-BR' }}</div>
+            <div class="stat-label">Total de Jogos do Ranking</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-value">{{ jogosCicloAtual | number:'1.0-0':'pt-BR' }}</div>
+            <div class="stat-label">Jogos do Ciclo Atual ({{ cicloAtual }})</div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
     </div>
 
     <h2 class="titulo-pagina text-center">Links do Ciclo {{cicloAtual}}</h2>
