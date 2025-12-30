@@ -1,6 +1,8 @@
 <div class="home-wrapper">
   <div class="modern-container">
 
+    <h2 class="titulo-apoiadores text-center">Apoiadores</h2>
+
     <!-- Hero / Carousel -->
     <div class="modern-hero">
       <div class="modern-carousel-container">
@@ -19,19 +21,18 @@
             </div>
           </div>
 
-          <!-- Controles -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselApoiadores" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselApoiadores" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-          </button>
+          <!-- Indicadores (dots) -->
+          <div class="carousel-indicators">
+            <button *ngFor="let apoiador of apoiadores; let i = index" type="button"
+              data-bs-target="#carouselApoiadores" [attr.data-bs-slide-to]="i"
+              [class.active]="i === indiceInicialCarrossel"
+              [attr.aria-current]="i === indiceInicialCarrossel ? 'true' : null" [attr.aria-label]="'Slide ' + (i + 1)">
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
 
 
 
