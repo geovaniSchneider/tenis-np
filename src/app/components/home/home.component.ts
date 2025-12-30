@@ -31,16 +31,22 @@ export class HomeComponent implements OnInit {
 
   apoiadores = [
     {
-      nome: 'Apoiador 1 - Google',
-      link: 'https://www.google.com',
-      imgDesktop: '/assets/ap1_desktop.png',
-      imgMobile: '/assets/ap1_mobile.png'
+      nome: 'Rádio Imperial',
+      link: 'http://www.imperial.fm.br?utm_source=tenisnp&utm_medium=banner&utm_campaign=2026_1',
+      imgDesktop: '/assets/radio_imperial_desktop.png',
+      imgMobile: '/assets/radio_imperial_mobile.png'
     },
     {
-      nome: 'Apoiador 2 - Bing',
-      link: 'https://www.bing.com',
-      imgDesktop: '/assets/ap2_desktop.png',
-      imgMobile: '/assets/ap2_mobile.png'
+      nome: 'Hotel Petrópolis',
+      link: 'https://www.hotelpetropolis.com.br?utm_source=tenisnp&utm_medium=banner&utm_campaign=2026_1',
+      imgDesktop: '/assets/hotel_petropolis_desktop.jpg',
+      imgMobile: '/assets/hotel_petropolis_mobile.jpg'
+    },
+    {
+      nome: 'Brasa e Alma',
+      link: 'https://wa.me/5554996347041?text=Quero%20fazer%20evento%20especial',
+      imgDesktop: '/assets/brasa_e_alma_desktop.png',
+      imgMobile: '/assets/brasa_e_alma_mobile.png'
     }
   ];
 

@@ -97,23 +97,36 @@
         width: 100%;
         transition: transform 0.3s ease;
     }
-
-
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    filter: invert(1) grayscale(100);
-    background-size: 24px;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(107, 68, 35, 0.7);
-    border-radius: 50%;
-    transition: all 0.3s ease;
+// Carousel Indicators (dots)
+.carousel-indicators {
+    position: relative;
+    bottom: auto;
+    margin-top: 16px;
+    margin-bottom: 0;
+    padding: 4px 0;
 
-    &:hover {
-        background-color: rgba(107, 68, 35, 0.9);
-        transform: scale(1.1);
+    button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #6B4423;
+        background-color: transparent;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        margin: 0 6px;
+
+        &.active {
+            background-color: #6B4423;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        &:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
     }
 }
 
@@ -292,6 +305,23 @@
         background: var(--gradient-accent);
         border-radius: 2px;
     }
+}
+
+// ========================================
+// Page Title
+// ========================================
+.titulo-apoiadores {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-align: center;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    position: relative;
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+
 }
 
 // ========================================
