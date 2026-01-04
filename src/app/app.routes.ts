@@ -7,7 +7,8 @@ import { RankingHistoryComponent } from './components/ranking-history/ranking-hi
 import { EmBreveComponent } from './components/em-breve/em-breve.component';
 
 export const routes: Routes = [
-  { path: '', component: EmBreveComponent, title: 'Tênis NP - Novidades em Breve' },
+  // { path: '', component: EmBreveComponent, title: 'Tênis NP - Novidades em Breve' },
+  { path: '', component: HomeComponent, title: 'Tênis NP - Home' },
   { path: 'home', component: HomeComponent, title: 'Tênis NP - Home' },
   { path: 'jogadores', component: PlayerListComponent, title: 'Tênis NP - Lista de Jogadores' },
   { path: 'jogador/:nome', component: PlayerHistoryComponent, title: 'Tênis NP - Análise do Jogador' },

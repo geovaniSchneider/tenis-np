@@ -10,11 +10,11 @@ export class CsvService {
   jogos$ = this.jogosSubject.asObservable();
 
   tabelasAtuais: { ciclo: string; classe: string; link: string }[] = [
-    { ciclo: '2025.3', classe: '1', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTNZN4hPXDBqEGb1_T9CUYZAD1w5-OGSOrrH-RT13suVGY1cJEnM97486nxhmeyuyOqi7ckXDQyzzCo/pub?gid=517895131&single=true&output=csv' },
-    { ciclo: '2025.3', classe: '2', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSX4m1ilJ0sHhwsoGZi7jTaycOlcANmtI2qYY_5_cEmzjgOcLUvjOCFOytoIgEOsSRODazvVy6M5xn/pub?gid=782127195&single=true&output=csv' },
-    { ciclo: '2025.3', classe: '3', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSRFgRoY2gZbW0zJZ28kFKBIaOMw1u7saT9Dxm7bYLPVe6_7f8K3J7KE98nuim0IUW1mIek8yAQXXyZ/pub?gid=238023827&single=true&output=csv' },
-    { ciclo: '2025.3', classe: '4', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRRc20H9PweLghnImIIABATVMDPdQi6hpA1-C_SwOHFdQWPs7D6rjCNTrncrYyXdIRZlRqfnA2zpLZR/pub?gid=255516752&single=true&output=csv' },
-    { ciclo: '2025.3', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2NBbDFEr9yyveTcrKUXtpVeaayAiYIkeGbX2BoapbRAMd8n-F6uttALXKzdVObNSdzy9a2_u1PqAQ/pub?gid=562202993&single=true&output=csv' },
+    { ciclo: '2026.1', classe: '1', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAYnXIN5bbGzegOMRo9mX6iefXB_9vnZypumr_ttJ48wrVS3JKDAvkxwiRLTV3TsiRmD5etzVKrOiy/pub?gid=444470349&single=true&output=csv' },
+    { ciclo: '2026.1', classe: '2', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdF__jXefDsAJWKOak2WhvSCuKZm6UFn4ae1xo7yj39tiCYofuEXrg_QHXIP8U3znEwZRIB2IyK1fG/pub?gid=829609840&single=true&output=csv' },
+    { ciclo: '2026.1', classe: '3', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSTnPoSOqEOyYSbkRm5kWLkiHD4zLJDEbu2cwJlw_Z3_JcTZG2obXVuHnkfc-hggypOXwq1_F6XFYou/pub?gid=492455363&single=true&output=csv' },
+    { ciclo: '2026.1', classe: '4', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQnpqv59JiZrqOn4_lY4DihqY1seeLcnyfgs0ns1c-tvLXRSWg293Zzs5oNXqramTOhvxPpyueF0W5Q/pub?gid=918192378&single=true&output=csv' },
+    { ciclo: '2026.1', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSnarKZdLDb_qjxc3FWtIp2kBlmND0gFQ7YWam2EVIuvU7fVHYqfru3rocyMjvcnQyx8aB9Y2wiwhk/pub?gid=1378277758&single=true&output=csv' },
   ];
 
   private loadingSubject = new BehaviorSubject<boolean>(true);
