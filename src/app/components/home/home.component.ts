@@ -47,6 +47,12 @@ export class HomeComponent implements OnInit {
       link: 'https://wa.me/5554996347041?text=Quero%20fazer%20evento%20especial',
       imgDesktop: '/assets/brasa_e_alma_desktop.png',
       imgMobile: '/assets/brasa_e_alma_mobile.png'
+    },
+    {
+      nome: 'Círculo Energia Solar',
+      link: 'https://www.instagram.com/circuloenergiasolar/',
+      imgDesktop: '/assets/circulo_desktop.jpg',
+      imgMobile: '/assets/circulo_mobile.jpg'
     }
   ];
 
