@@ -53,6 +53,12 @@ export class HomeComponent implements OnInit {
       link: 'https://www.instagram.com/circuloenergiasolar/',
       imgDesktop: '/assets/circulo_desktop.jpg',
       imgMobile: '/assets/circulo_mobile.jpg'
+    },
+    {
+      nome: 'Top Gan Automotors',
+      link: 'https://topganautomotors.com.br/',
+      imgDesktop: '/assets/topgan_desktop.jpg',
+      imgMobile: '/assets/topgan_mobile.jpg'
     }
   ];
 
