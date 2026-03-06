@@ -59,6 +59,12 @@ export class HomeComponent implements OnInit {
       link: 'https://topganautomotors.com.br/',
       imgDesktop: '/assets/topgan_desktop.jpg',
       imgMobile: '/assets/topgan_mobile.jpg'
+    },
+    {
+      nome: 'Supermercado Dia a Dia',
+      link: 'https://www.instagram.com/supermercadodiaadia_np?igsh=eTVpMGU4aWRhNGFm&utm_source=tenisnp',
+      imgDesktop: '/assets/dia_a_dia_desktop.jpg',
+      imgMobile: '/assets/dia_a_dia_mobile.jpg'
     }
   ];
 
