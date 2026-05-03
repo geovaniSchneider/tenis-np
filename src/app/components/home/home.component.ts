@@ -42,18 +42,18 @@ export class HomeComponent implements OnInit {
       imgDesktop: '/assets/hotel_petropolis_desktop.jpg',
       imgMobile: '/assets/hotel_petropolis_mobile.jpg'
     },
-    {
-      nome: 'Brasa e Alma',
-      link: 'https://wa.me/5554996347041?text=Quero%20fazer%20evento%20especial',
-      imgDesktop: '/assets/brasa_e_alma_desktop.png',
-      imgMobile: '/assets/brasa_e_alma_mobile.png'
-    },
-    {
-      nome: 'Círculo Energia Solar',
-      link: 'https://www.instagram.com/circuloenergiasolar/',
-      imgDesktop: '/assets/circulo_desktop.jpg',
-      imgMobile: '/assets/circulo_mobile.jpg'
-    },
+    // {
+    //   nome: 'Brasa e Alma',
+    //   link: 'https://wa.me/5554996347041?text=Quero%20fazer%20evento%20especial',
+    //   imgDesktop: '/assets/brasa_e_alma_desktop.png',
+    //   imgMobile: '/assets/brasa_e_alma_mobile.png'
+    // },
+    // {
+    //   nome: 'Círculo Energia Solar',
+    //   link: 'https://www.instagram.com/circuloenergiasolar/',
+    //   imgDesktop: '/assets/circulo_desktop.jpg',
+    //   imgMobile: '/assets/circulo_mobile.jpg'
+    // },
     {
       nome: 'Top Gan Automotors',
       link: 'https://topganautomotors.com.br/',
@@ -68,38 +68,77 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  cicloAtual = '2026.1';
+  cicloAtual = '2026.2';
+
+  // grupos = [
+  //   {
+  //     id: 1,
+  //     nome: 'Classe 1',
+  //     linkTabela: 'https://docs.google.com/spreadsheets/d/16sVqGlaUWUisO4yDFlHo_2W9r1VeFbLGeuBE4lTfxJM/edit?usp=sharing',
+  //     linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSdzmVWzGTFhMqdm4wFWOPWil5Rwxf3sDaR2QeKv3iOIY_DnPA/viewform?usp=sharing&ouid=118078082500890152692'
+  //   },
+  //   {
+  //     id: 2,
+  //     nome: 'Classe 2',
+  //     linkTabela: 'https://docs.google.com/spreadsheets/d/14_WhwtRMLVs3zdH0w26ZKzlxn2JkikhOVxWmRG0udCk/edit?usp=sharing',
+  //     linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSc-B2TnJu5_tO4X22dJxvjxDjVefplvIh9OMMS7w7VhapQg-g/viewform?usp=sharing&ouid=118078082500890152692'
+  //   },
+  //   {
+  //     id: 3,
+  //     nome: 'Classe 3',
+  //     linkTabela: 'https://docs.google.com/spreadsheets/d/1Oj8ytIhXBKX1ppDiPv2bF67y_PtaaqpfDfjgVun9eLw/edit?usp=sharing',
+  //     linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLScrxuVvJf2lAK86Ak9aLvcRcoGAfTtQIEkioqCPs5SA8blKeg/viewform?usp=sharing&ouid=118078082500890152692'
+  //   },
+  //   {
+  //     id: 4,
+  //     nome: 'Classe 4',
+  //     linkTabela: 'https://docs.google.com/spreadsheets/d/1KphDrlv1_IOfquUJhO1SuE3UXYhFPMMLrBd5KXlsz-E/edit?usp=sharing',
+  //     linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSeB2iN9d-C_l4oEUWiTLs7EO3TPnuje2RU3-3Pgqtrnm8qhWg/viewform?usp=sharing&ouid=118078082500890152692'
+  //   },
+  //   {
+  //     id: 5,
+  //     nome: 'Classe 5',
+  //     linkTabela: 'https://docs.google.com/spreadsheets/d/1XdQqCh3qrlr16DFkivdJtBnbZ9IaqLRoCMLsdFJ8F2w/edit?usp=sharing',
+  //     linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSf4VHFsszcYkfYUNuVnyIyjtVhdS83RVU32wGeETTeLf65Upw/viewform?usp=sharing&ouid=118078082500890152692'
+  //   }
+  // ];
 
   grupos = [
     {
       id: 1,
       nome: 'Classe 1',
-      linkTabela: 'https://docs.google.com/spreadsheets/d/16sVqGlaUWUisO4yDFlHo_2W9r1VeFbLGeuBE4lTfxJM/edit?usp=sharing',
-      linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSdzmVWzGTFhMqdm4wFWOPWil5Rwxf3sDaR2QeKv3iOIY_DnPA/viewform?usp=sharing&ouid=118078082500890152692'
+      linkTabela: 'https://docs.google.com/spreadsheets/d/13iNLdFMiE5IkxfXqsTNc_KqCCegZTzpLQN33FRbPvco/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/xQTQbxH9Je6Ffgc48'
     },
     {
       id: 2,
       nome: 'Classe 2',
-      linkTabela: 'https://docs.google.com/spreadsheets/d/14_WhwtRMLVs3zdH0w26ZKzlxn2JkikhOVxWmRG0udCk/edit?usp=sharing',
-      linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSc-B2TnJu5_tO4X22dJxvjxDjVefplvIh9OMMS7w7VhapQg-g/viewform?usp=sharing&ouid=118078082500890152692'
+      linkTabela: 'https://docs.google.com/spreadsheets/d/1rNWVBKaN6uqiWRpXDG23tRO-jV4O-eqH1jAYoPViHpY/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/QagLr2YoEDjvc4sf7'
     },
     {
       id: 3,
       nome: 'Classe 3',
-      linkTabela: 'https://docs.google.com/spreadsheets/d/1Oj8ytIhXBKX1ppDiPv2bF67y_PtaaqpfDfjgVun9eLw/edit?usp=sharing',
-      linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLScrxuVvJf2lAK86Ak9aLvcRcoGAfTtQIEkioqCPs5SA8blKeg/viewform?usp=sharing&ouid=118078082500890152692'
+      linkTabela: 'https://docs.google.com/spreadsheets/d/1vH38r1jShp8ubSnPTyEAH2TXnkbHKQ9BwYHzLsVAeL4/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/PmiNrAQZoLe94s4e9'
     },
     {
       id: 4,
       nome: 'Classe 4',
-      linkTabela: 'https://docs.google.com/spreadsheets/d/1KphDrlv1_IOfquUJhO1SuE3UXYhFPMMLrBd5KXlsz-E/edit?usp=sharing',
-      linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSeB2iN9d-C_l4oEUWiTLs7EO3TPnuje2RU3-3Pgqtrnm8qhWg/viewform?usp=sharing&ouid=118078082500890152692'
+      linkTabela: 'https://docs.google.com/spreadsheets/d/1yM9G8DgorXh33nyvLbKJqkupnkuHlSsA9SGkeETl80M/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/aWRjiQkoUgmSAPVF6'
     },
     {
       id: 5,
       nome: 'Classe 5',
-      linkTabela: 'https://docs.google.com/spreadsheets/d/1XdQqCh3qrlr16DFkivdJtBnbZ9IaqLRoCMLsdFJ8F2w/edit?usp=sharing',
-      linkFormulario: 'https://docs.google.com/forms/d/e/1FAIpQLSf4VHFsszcYkfYUNuVnyIyjtVhdS83RVU32wGeETTeLf65Upw/viewform?usp=sharing&ouid=118078082500890152692'
+      linkTabela: 'https://docs.google.com/spreadsheets/d/1p8UxtatU4uleOo2P16JAlRZj9T0CIDhTmL7YzlATyQo/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/f5Uaqdo9k8Tgu9u99'
+    },
+    {
+      id: 6,
+      nome: 'Classe 6',
+      linkTabela: 'https://docs.google.com/spreadsheets/d/13aZEJ3a4URcgw5QVu4ZP4o5f26h1LWG4t_zoNaCZQYo/edit?usp=sharing',
+      linkFormulario: 'https://forms.gle/k9MkKgbUHkFKq5cA7'
     }
   ];
 
@@ -133,6 +172,7 @@ export class HomeComponent implements OnInit {
     this.rankingService.getJogosObservable().subscribe(todosJogos => {
       // Total de jogos do ranking
       this.totalJogos = todosJogos.length;
+      console.log(this.cicloAtual);
 
       // Jogos do ciclo atual
       const jogosCiclo = todosJogos.filter(j => j.ciclo === this.cicloAtual);
