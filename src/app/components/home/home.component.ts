@@ -62,13 +62,13 @@ export class HomeComponent implements OnInit {
     },
     {
       nome: 'Supermercado Dia a Dia',
-      link: 'https://www.instagram.com/supermercadodiaadia_np?igsh=eTVpMGU4aWRhNGFm&utm_source=tenisnp',
+      link: 'https://www.instagram.com/supermercadodiaadia_np?&utm_source=tenisnp',
       imgDesktop: '/assets/dia_a_dia_desktop.jpg',
       imgMobile: '/assets/dia_a_dia_mobile.jpg'
     },
     {
       nome: 'Nelemai Corretora',
-      link: 'https://www.instagram.com/nelemaicorretora?igsh=N2FjdzJseG1vNjd0&utm_source=tenisnp',
+      link: 'https://www.instagram.com/nelemaicorretora?&utm_source=tenisnp',
       imgDesktop: '/assets/nelemai_desktop.jpg',
       imgMobile: '/assets/nelemai_mobile.jpg'
     }
