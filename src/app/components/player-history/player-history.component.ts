@@ -86,6 +86,9 @@ export class PlayerHistoryComponent implements OnInit {
         return dateA! - dateB!;
       });
 
+      // PROVISORIO
+      console.log(this.jogos);
+
       this.totalJogos = this.jogos.length;
       this.totalVitorias = this.jogos.filter(
         j =>

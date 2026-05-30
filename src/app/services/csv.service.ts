@@ -10,12 +10,12 @@ export class CsvService {
   jogos$ = this.jogosSubject.asObservable();
 
   tabelasAtuais: { ciclo: string; classe: string; link: string }[] = [
-    { ciclo: '2026.2', classe: '1', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyEE_5H4UvGw7uXlRt510zkH_Yyeh9Qt_H_r43Ry8AxjYPOGKdOgFfQ4K4QTg8q6gEOTKSd8r-i5AR/pub?gid=604514775&single=true&output=csv' },
-    { ciclo: '2026.2', classe: '2', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwPon9TwC4Ex_Vg8PrHrxNb4eCiZixwAWS1vocm4-xJiz9Cdqc0EV7A-m7Vyz56KWE-MhX-mwCkeo3/pub?gid=278937603&single=true&output=csv' },
-    { ciclo: '2026.2', classe: '3', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsug6IaseUykYt0mS2kpo-_cLRn7os9RC07GkEZUcynYgi2G8DWCtKfO5HWIUQEyrbcMi9UzPb7ufH/pub?gid=1633250290&single=true&output=csv' },
-    { ciclo: '2026.2', classe: '4', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4KUDWpF9rfhgWkBcy0CV0NlNOPhnK6vO1iydv_XVhCKVKkWZqBG2ZXKupbtzbaJc-pBq6XYl0_496/pub?gid=1624984752&single=true&output=csv' },
-    { ciclo: '2026.2', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVdwubfnDsbNeHVaHYgGLIvI-Kc0nJMyE60saLvKixZELYtZF63qD4A75ii1eiybvChmSCcmr17ssO/pub?gid=1280224756&single=true&output=csv' },
-    { ciclo: '2026.2', classe: '6', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSAvu2jeeF2lqD0ZIyErQRSCH-t31kCTHoFZO6gEwqBHyHMOLDjvF7OGvid6AtqYGeGJzNU3L1CQKZm/pub?gid=211335412&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '1', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyEE_5H4UvGw7uXlRt510zkH_Yyeh9Qt_H_r43Ry8AxjYPOGKdOgFfQ4K4QTg8q6gEOTKSd8r-i5AR/pub?gid=1145900517&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '2', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwPon9TwC4Ex_Vg8PrHrxNb4eCiZixwAWS1vocm4-xJiz9Cdqc0EV7A-m7Vyz56KWE-MhX-mwCkeo3/pub?gid=1086603000&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '3', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsug6IaseUykYt0mS2kpo-_cLRn7os9RC07GkEZUcynYgi2G8DWCtKfO5HWIUQEyrbcMi9UzPb7ufH/pub?gid=2073829235&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '4', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4KUDWpF9rfhgWkBcy0CV0NlNOPhnK6vO1iydv_XVhCKVKkWZqBG2ZXKupbtzbaJc-pBq6XYl0_496/pub?gid=1111515514&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '5', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVdwubfnDsbNeHVaHYgGLIvI-Kc0nJMyE60saLvKixZELYtZF63qD4A75ii1eiybvChmSCcmr17ssO/pub?gid=128871504&single=true&output=csv' },
+    { ciclo: '2026.2', classe: '6', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSAvu2jeeF2lqD0ZIyErQRSCH-t31kCTHoFZO6gEwqBHyHMOLDjvF7OGvid6AtqYGeGJzNU3L1CQKZm/pub?gid=440765697&single=true&output=csv' },
   ];
 
   private loadingSubject = new BehaviorSubject<boolean>(true);
