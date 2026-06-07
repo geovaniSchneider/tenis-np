@@ -178,7 +178,6 @@ export class HomeComponent implements OnInit {
     this.rankingService.getJogosObservable().subscribe(todosJogos => {
       // Total de jogos do ranking
       this.totalJogos = todosJogos.length;
-      console.log(this.cicloAtual);
 
       // Jogos do ciclo atual
       const jogosCiclo = todosJogos.filter(j => j.ciclo === this.cicloAtual);
